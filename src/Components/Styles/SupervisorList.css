@@ -1,0 +1,12 @@
+.student-list {
+  margin-bottom: 20px;
+}
+
+.student-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.student-list li {
+  margin-bottom: 10px;
+}

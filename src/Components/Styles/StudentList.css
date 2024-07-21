@@ -1,0 +1,128 @@
+/* .student-list {
+  margin-bottom: 20px;
+}
+
+.student-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.student-list li {
+  margin-bottom: 10px;
+}
+
+.student-list button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.student-list button:hover {
+  background-color: #c82333;
+} */
+
+
+/* StudentList.css */
+.student-list {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.student-list h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.student-list ul {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.student-list li {
+  font-size: 16px;
+  color: #555555;
+  padding: 10px;
+  border-bottom: 1px solid #eeeeee;
+  display: flex;
+  justify-content: space-between;
+}
+
+.student-list .header {
+  font-weight: bold;
+  color: #333333;
+}
+
+.student-list h3 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 10px;
+}
+
+.student-list select,
+.student-list input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.student-list button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.student-list button:hover {
+  background-color: #0056b3;
+}
+
+.group-list {
+  margin-top: 20px;
+}
+
+.custom-select {
+  width: 100%;
+  height: auto;
+  min-height: 100px; /* Adjust as needed */
+  font-size: 14px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow-y: auto; /* Allow vertical scrolling */
+}
+
+.custom-select option {
+  padding: 8px;
+  cursor: pointer;
+}
+
+/* Optional: Style dropdown arrow */
+.custom-select::after {
+  content: '\25BC'; /* Unicode character for down arrow */
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+

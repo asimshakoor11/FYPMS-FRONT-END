@@ -1,0 +1,96 @@
+.fyp-dashboard {
+  display: flex;
+  height: 100vh;
+  position: relative;
+}
+
+.hamburger {
+  display: none;
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  background-color: white;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 1000;
+  color: black;
+  width: fit-content;
+}
+
+.sidebar {
+  min-width: 250px;
+  background-color: #007bff;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.sidebar li {
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.3s;
+}
+
+.sidebar li:hover {
+  background-color: #0056b3;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #f0f0f0;
+  overflow-y: auto;
+}
+
+.Logoword {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    transform: translateX(-100%);
+    z-index: 100;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .content {
+    margin-left: 0;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 50;
+  }
+}

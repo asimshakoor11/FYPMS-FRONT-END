@@ -1,0 +1,46 @@
+.login-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: left;
+}
+
+/* Add a boxed layout */
+.login-form {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+
+/* Style the form elements */
+.login-form label {
+  display: block;
+  margin: 10px 0;
+}
+
+.login-form select, button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.login-form button {
+  background-color: #4CAF50;
+  color: #fff;
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  background-color: #3e8e41;
+}
+
+input{
+  width: 100%;
+}
+
