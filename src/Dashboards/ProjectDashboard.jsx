@@ -13,7 +13,7 @@ function ProjectDashboard() {
   const fetchGroupByNumber = async () => {
     try {
       // const response = await axios.get(`http://localhost:5000/api/groups/${groupId}`);
-      const response = await axios.get(`http://localhost:5000/api/groups/${groupId}`);
+      const response = await axios.get(`https://fypms-back-end.vercel.app/api/groups/${groupId}`);
       setGroup(response.data);
       setLoading(false);
     } catch (err) {
@@ -339,7 +339,7 @@ function ProjectDashboard() {
                           <h3>{task.title}</h3>
                           <p>{task.description}</p>
                           {task.filePath && (
-                            <a href={`http://localhost:5000${task.filePath}`} target="_blank" rel="noopener noreferrer" download>
+                            <a href={`https://fypms-back-end.vercel.app${task.filePath}`} target="_blank" rel="noopener noreferrer" download>
                               Download File
                             </a>
                           )}
@@ -365,7 +365,7 @@ function ProjectDashboard() {
                     <li key={index}>
                       <h3>{submission.taskId.title}</h3>
                       <p>
-                        <a href={`http://localhost:5000${submission.filePath}`} target="_blank" rel="noopener noreferrer" download>
+                        <a href={`https://fypms-back-end.vercel.app${submission.filePath}`} target="_blank" rel="noopener noreferrer" download>
                           Download Submission
                         </a>
                       </p>
@@ -420,7 +420,7 @@ function ProjectDashboard() {
                         <h3>{task.title}</h3>
                         <p>{task.description}</p>
                         {task.filePath && (
-                          <a href={`http://localhost:5000${task.filePath}`} target="_blank" rel="noopener noreferrer" download>
+                          <a href={`https://fypms-back-end.vercel.app${task.filePath}`} target="_blank" rel="noopener noreferrer" download>
                             Download File
                           </a>
                         )}
