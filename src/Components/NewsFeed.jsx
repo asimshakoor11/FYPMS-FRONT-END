@@ -18,7 +18,8 @@ const NewsFeed = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/posts');
+        // const response = await axios.get('http://localhost:5000/posts');
+        const response = await axios.get('https://fypms-back-end.vercel.app/posts');
         setPosts(response.data);
       } catch (error) {
         console.error('Failed to fetch posts', error);
@@ -41,7 +42,8 @@ const NewsFeed = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:5000/posts', newPost);
+      // const response = await axios.post('http://localhost:5000/posts', newPost);
+      const response = await axios.post('https://fypms-back-end.vercel.app/posts', newPost);
       setPosts([response.data, ...posts]);
       setTitle('');
       setDescription('');

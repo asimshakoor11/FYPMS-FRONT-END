@@ -12,6 +12,7 @@ function ProjectDashboard() {
 
   const fetchGroupByNumber = async () => {
     try {
+      // const response = await axios.get(`http://localhost:5000/api/groups/${groupId}`);
       const response = await axios.get(`http://localhost:5000/api/groups/${groupId}`);
       setGroup(response.data);
       setLoading(false);
@@ -52,7 +53,8 @@ function ProjectDashboard() {
   };
   const handleUpdateMarks = async (updatedMarks) => {
     try {
-      await axios.put(`http://localhost:5000/api/groups/${groupId}/marks`, { marks: updatedMarks });
+      // await axios.put(`http://localhost:5000/api/groups/${groupId}/marks`, { marks: updatedMarks });
+      await axios.put(`https://fypms-back-end.vercel.app/api/groups/${groupId}/marks`, { marks: updatedMarks });
       alert("Marks updated successfully");
       fetchGroupByNumber();
 
@@ -81,7 +83,8 @@ function ProjectDashboard() {
   const handleUpdatePhase = async (phase) => {
     const progressPercentage = calculateProgressPercentage(phase);
     try {
-      await axios.put(`http://localhost:5000/api/groups/${group._id}/phase`, { phase, progressPercentage });
+      // await axios.put(`http://localhost:5000/api/groups/${group._id}/phase`, { phase, progressPercentage });
+      await axios.put(`https://fypms-back-end.vercel.app/api/groups/${group._id}/phase`, { phase, progressPercentage });
       alert('Phase updated successfully');
       fetchGroupByNumber();
 
@@ -126,7 +129,8 @@ function ProjectDashboard() {
       formData.append('description', task.description);
       if (task.file) formData.append('file', task.file);
 
-      await axios.post(`http://localhost:5000/api/groups/${groupId}/tasks`, formData, {
+      // await axios.post(`http://localhost:5000/api/groups/${groupId}/tasks`, formData, {
+        await axios.post(`https://fypms-back-end.vercel.app/api/groups/${groupId}/tasks`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -144,7 +148,8 @@ function ProjectDashboard() {
       formData.append('taskId', taskId);
       formData.append('file', file);
 
-      const response = await axios.post(`http://localhost:5000/api/groups/${groupId}/tasks/submit`, formData, {
+      // const response = await axios.post(`http://localhost:5000/api/groups/${groupId}/tasks/submit`, formData, {
+      const response = await axios.post(`https://fypms-back-end.vercel.app/api/groups/${groupId}/tasks/submit`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

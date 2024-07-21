@@ -12,7 +12,8 @@ const SupervisorsList = () => {
 
   const fetchSupervisors = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/supervisors');
+      // const response = await axios.get('http://localhost:5000/api/supervisors');
+      const response = await axios.get('https://fypms-back-end.vercel.app/api/supervisors');
       setSupervisors(response.data);
     } catch (error) {
       console.error('Error fetching supervisors:', error);

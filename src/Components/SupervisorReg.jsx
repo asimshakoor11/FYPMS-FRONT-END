@@ -24,7 +24,8 @@ function SupervisorReg() {
   const handleAddSupervisor = async () => {
     if (name && id) {
       try {
-        await axios.post('http://localhost:5000/api/supervisors/register', {
+        // await axios.post('http://localhost:5000/api/supervisors/register', {
+          await axios.post('https://fypms-back-end.vercel.app/api/supervisors/register', {
           name,
           username: id,
           password: 'supervisor@123',
@@ -42,7 +43,8 @@ function SupervisorReg() {
 
   const handleDeleteSupervisor = async (username) => {
     try {
-      await axios.delete(`http://localhost:5000/api/supervisors/${username}`);
+      // await axios.delete(`http://localhost:5000/api/supervisors/${username}`);
+      await axios.delete(`https://fypms-back-end.vercel.app/api/supervisors/${username}`);
       fetchSupervisors(); // Refresh supervisor list after deletion
     } catch (error) {
       console.error('Error deleting supervisor:', error);

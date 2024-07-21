@@ -22,14 +22,16 @@ function Profile() {
 
   useEffect(() => {
     if (username) {
-      axios.get(`http://localhost:5000/api/profile/${username}`, {
+      // axios.get(`http://localhost:5000/api/profile/${username}`, {
+        axios.get(`https://fypms-back-end.vercel.app/api/profile/${username}`, {
         headers: { Authorization: `Bearer ${token}` }
       })
         .then(response => {
           if (response.data) {
             setUser(response.data);
             if (response.data.photo) {
-              setImagePreview(`http://localhost:5000${response.data.photo}`);
+              // setImagePreview(`http://localhost:5000${response.data.photo}`);
+              setImagePreview(`https://fypms-back-end.vercel.app${response.data.photo}`);
             }
           }
         })
@@ -59,7 +61,8 @@ function Profile() {
       formData.append(key, user[key]);
     });
 
-    axios.post(`http://localhost:5000/api/profile/${username}`, formData, {
+    // axios.post(`http://localhost:5000/api/profile/${username}`, formData, {
+      axios.post(`https://fypms-back-end.vercel.app/api/profile/${username}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         'Authorization': `Bearer ${token}`
@@ -68,7 +71,8 @@ function Profile() {
       .then(response => {
         setUser(response.data);
         if (response.data.photo) {
-          setImagePreview(`http://localhost:5000${response.data.photo}`);
+          // setImagePreview(`http://localhost:5000${response.data.photo}`);
+          setImagePreview(`https://fypms-back-end.vercel.app${response.data.photo}`);
         }
         alert("Profile updated successfully");
         setIsEditing(false);
@@ -107,7 +111,8 @@ function Profile() {
         try {
           const token = localStorage.getItem('token'); // Retrieve token from local storage
           const response = await axios.post(
-            'http://localhost:5000/api/authCommittee/change-password',
+            // 'http://localhost:5000/api/authCommittee/change-password',
+            'https://fypms-back-end.vercel.app/api/authCommittee/change-password',
             { username, oldPassword, newPassword },
             { headers: { Authorization: `Bearer ${token}` } }
           );
@@ -122,7 +127,8 @@ function Profile() {
         try {
           const token = localStorage.getItem('token'); // Retrieve token from local storage
           const response = await axios.post(
-            'http://localhost:5000/api/students/change-password',
+            // 'http://localhost:5000/api/students/change-password',
+            'https://fypms-back-end.vercel.app/api/students/change-password',
             { username, oldPassword, newPassword },
             { headers: { Authorization: `Bearer ${token}` } }
           );
@@ -136,7 +142,8 @@ function Profile() {
         try {
           const token = localStorage.getItem('token'); // Retrieve token from local storage
           const response = await axios.post(
-            'http://localhost:5000/api/supervisors/change-password',
+            // 'http://localhost:5000/api/supervisors/change-password',
+            'https://fypms-back-end.vercel.app/api/supervisors/change-password',
             { username, oldPassword, newPassword },
             { headers: { Authorization: `Bearer ${token}` } }
           );

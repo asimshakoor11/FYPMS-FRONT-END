@@ -34,7 +34,8 @@ function StudentReg() {
 
   const fetchStudents = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/students');
+      // const response = await axios.get('http://localhost:5000/api/students');
+      const response = await axios.get('https://fypms-back-end.vercel.app/api/students');
       setStudents(response.data);
     } catch (error) {
       console.error('Error fetching students:', error);
@@ -43,7 +44,8 @@ function StudentReg() {
   
   const handleDeleteStudent = async (username) => {
     try {
-      await axios.delete(`http://localhost:5000/api/students/${username}`);
+      // await axios.delete(`http://localhost:5000/api/students/${username}`);
+      await axios.delete(`https://fypms-back-end.vercel.app/api/students/${username}`);
       fetchStudents(); // Refresh student list after deletion
     } catch (error) {
       console.error('Error deleting student:', error);
