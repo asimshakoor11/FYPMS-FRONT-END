@@ -10,7 +10,8 @@ function StudentReg() {
   const handleAddStudent = async () => {
     if (name && rollNumber) {
       try {
-        await axios.post('http://localhost:5000/api/students/register', {
+        // await axios.post('http://localhost:5000/api/students/register', {
+          await axios.post('https://fypms-back-end.vercel.app/api/students/register', {
           name,
           username: rollNumber,
           password: 'student@123', // Default password
