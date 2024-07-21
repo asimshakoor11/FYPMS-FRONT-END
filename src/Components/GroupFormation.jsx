@@ -41,19 +41,19 @@ const GroupFormation = () => {
 
     // Fetch groups from the backend
     useEffect(() => {
-        const fetchGroups = async () => {
-            try {
-                // const response = await axios.get('http://localhost:5000/api/groups');
-                const response = await axios.get('https://fypms-back-end.vercel.app/api/groups');
-                setGroups(response.data);
-            } catch (error) {
-                console.error('Error fetching groups:', error);
-            }
-        };
         fetchGroups();
     }, []);
+    const fetchGroups = async () => {
+        try {
+            // const response = await axios.get('http://localhost:5000/api/groups');
+            const response = await axios.get('https://fypms-back-end.vercel.app/api/groups');
+            setGroups(response.data);
+        } catch (error) {
+            console.error('Error fetching groups:', error);
+        }
+    };
 
-    
+
 
     const handleAddToGroup = async () => {
         if (selectedStudents.length > 0 && selectedSupervisor && groupNumber && projectTitle) {
@@ -81,6 +81,8 @@ const GroupFormation = () => {
                         group._id === updatedGroup._id ? updatedGroup : group
                     );
                     setGroups(updatedGroups);
+                    fetchGroups();
+
                 } else {
                     // Create a new group
                     // const response = await axios.post('http://localhost:5000/api/groups', {
@@ -92,9 +94,12 @@ const GroupFormation = () => {
                     });
                     const newGroup = response.data;
                     setGroups([...groups, newGroup]);
+                    fetchGroups();
                 }
 
                 // Reset form fields
+                alert('Group Registered Successfully');
+
                 setGroupNumber("");
                 setSelectedStudents([]);
                 setSelectedSupervisor("");
@@ -119,6 +124,8 @@ const GroupFormation = () => {
                 return group;
             });
             setGroups(updatedGroups);
+            fetchGroups();
+
         } catch (error) {
             console.error('Error removing member from group:', error);
             alert('Error removing member from group. Please try again.');
@@ -132,6 +139,8 @@ const GroupFormation = () => {
             await axios.delete(`https://fypms-back-end.vercel.app/api/groups/${groupId}`);
             const updatedGroups = groups.filter((group) => group._id !== groupId);
             setGroups(updatedGroups);
+            fetchGroups();
+
         } catch (error) {
             console.error('Error deleting group:', error);
             alert('Error deleting group. Please try again.');
