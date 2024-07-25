@@ -2,12 +2,21 @@ import React, { useState } from "react";
 import Profile from "../Components/Profile";
 import "./Styles/CommitteDashboard.css";
 import NewsFeed from "../Components/NewsFeed";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import GroupList from "../Components/GroupList";
 
 function StudentDashboard() {
     const [selectedComponent, setSelectedComponent] = useState("Profile");
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if(!token){
+            navigate('/')
+        }
+    })
 
     const renderComponent = () => {
         switch (selectedComponent) {
@@ -34,7 +43,8 @@ function StudentDashboard() {
         localStorage.setItem("userRole", "");
         localStorage.setItem('token', "");
     }
-
+    
+   
 
     return (
         <div className="fyp-dashboard" onClick={closeSidebar}>

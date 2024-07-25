@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import "./Styles/CommitteDashboard.css";
 import axios from "axios";
 import toast, { Toaster } from 'react-hot-toast';
@@ -11,6 +11,15 @@ function ProjectDashboard() {
   const [role, setRole] = useState('');
   const [group, setGroup] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate()
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if(!token){
+            navigate('/')
+        }
+    })
 
   const fetchGroupByNumber = async () => {
     try {

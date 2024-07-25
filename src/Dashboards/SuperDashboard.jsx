@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Profile from "../Components/Profile";
 import GroupList from "../Components/GroupList";
 import "./Styles/CommitteDashboard.css";
 import NewsFeed from "../Components/NewsFeed";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function SuperDashboard() {
     const [selectedComponent, setSelectedComponent] = useState("Profile");
@@ -34,6 +34,15 @@ function SuperDashboard() {
         localStorage.setItem("userRole", "");
         localStorage.setItem('token', "");
     }
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if(!token){
+            navigate('/')
+        }
+    })
 
 
     return (
