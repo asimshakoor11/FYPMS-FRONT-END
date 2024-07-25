@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Profile from "../Components/Profile";
 import "./Styles/CommitteDashboard.css";
 import NewsFeed from "../Components/NewsFeed";
