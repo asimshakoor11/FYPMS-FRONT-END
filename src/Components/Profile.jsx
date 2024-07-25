@@ -31,7 +31,7 @@ function Profile() {
             setUser(response.data);
             if (response.data.photo) {
               // setImagePreview(`http://localhost:5000${response.data.photo}`);
-              setImagePreview(`https://fypms-back-end.vercel.app${response.data.photo}`);
+              setImagePreview(`${response.data.photo}`);
             }
           }
         })
