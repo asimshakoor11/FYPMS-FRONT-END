@@ -13,7 +13,8 @@ function GroupList() {
       try {
         // const response = await axios.get('http://localhost:5000/api/groups');
         const response = await axios.get('https://fypms-back-end.vercel.app/api/groups');
-        setGroups(response.data);
+        const sortedGroups = response.data.sort((a, b) => a.number - b.number);
+        setGroups(sortedGroups);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching groups:', error);
@@ -25,7 +26,7 @@ function GroupList() {
 
   const loggedInUser = localStorage.getItem("loggedInUser");
   const loggedInUserRole = localStorage.getItem("userRole");
-  
+
   const handleGroupClick = (group) => {
     navigate({
       pathname: `/projectdashboard/${group.number}`,
@@ -56,17 +57,39 @@ function GroupList() {
         <p>No groups to display.</p>
       ) : (
         filteredGroups.map((group, index) => (
-          <div key={index} className="group-container" style={{ cursor: 'pointer' }} onClick={() => handleGroupClick(group)}>
-            <h3 className="group-header">Group {group.number}</h3>
+          <div key={index} className="mt-10 flex flex-col gap-4" style={{ cursor: 'pointer' }} >
+            <div className="flex justify-between items-center">
+              <h3 className="font-semibold text-2xl underline">Group {group.number}</h3>
+              <button
+                onClick={() => handleGroupClick(group)}
+                className="bg-primarycolor w-[150px] text-white px-4 py-2 rounded hover:bg-primarycolor"
+              >
+                Dashboard
+              </button>
+            </div>
             <p><strong>Supervisor:</strong> {group.supervisor.name}</p>
             <p><strong>Project Title:</strong> {group.projectTitle}</p>
-            <ul>
-              {group.members.map((student, idx) => (
-                <li key={idx}>
-                  {student.name} ({student.username})
-                </li>
-              ))}
-            </ul>
+            <h3 className="font-semibold text-xl">Members</h3>
+
+            <div>
+              <table className="w-full table-auto rounded ">
+                <thead>
+                  <tr className="bg-gray-200">
+                    <th className="px-4 py-2 text-left w-1/2">Name</th>
+                    <th className="px-4 py-2 text-left w-1/2">Roll Number</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {group.members.map((student, idx) => (
+                    <tr key={idx} className="border-b">
+                      <td className="px-4 py-2">{student.name}</td>
+                      <td className="px-4 py-2">{student.username}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
           </div>
         ))
       )}

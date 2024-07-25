@@ -43,6 +43,7 @@
   cursor: pointer;
   text-align: left;
   transition: background-color 0.3s;
+  font-weight: 600;
 }
 
 .sidebar li:hover {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Styles/Profile.css";
-
+import toast, { Toaster } from 'react-hot-toast';
 
 function Profile() {
   const username = localStorage.getItem("loggedInUser");
@@ -74,11 +74,11 @@ function Profile() {
           // setImagePreview(`http://localhost:5000${response.data.photo}`);
           setImagePreview(`https://fypms-back-end.vercel.app${response.data.photo}`);
         }
-        alert("Profile updated successfully");
+        toast.success("Profile updated successfully");
         setIsEditing(false);
       })
       .catch(error => {
-        console.error("There was an error updating the profile!", error);
+        toast.error("There was an error updating the profile!", error);
       });
   };
 
@@ -104,7 +104,7 @@ function Profile() {
   const handleUpdatePass = async () => {
 
     if (!oldPassword || !newPassword) {
-      alert("enter details")
+      toast.error("Enter Details")
     }
     else {
       if (Role === "Committee") {
@@ -116,10 +116,12 @@ function Profile() {
             { username, oldPassword, newPassword },
             { headers: { Authorization: `Bearer ${token}` } }
           );
-          alert(response.data.message);
+          toast.success(response.data.message);
+          setIsEditPassword(false);
+
         } catch (error) {
           console.error('Error updating password:', error);
-          alert(error.response.data.message || 'Error updating password');
+          toast.error(error.response.data.message || 'Error updating password');
         }
       }
 
@@ -132,10 +134,12 @@ function Profile() {
             { username, oldPassword, newPassword },
             { headers: { Authorization: `Bearer ${token}` } }
           );
-          alert(response.data.message);
+          toast.success(response.data.message);
+          setIsEditPassword(false);
+
         } catch (error) {
           console.error('Error updating password:', error);
-          alert(error.response.data.message || 'Error updating password');
+          toast.error(error.response.data.message || 'Error updating password');
         }
       }
       else if (Role === "Supervisor") {
@@ -147,10 +151,12 @@ function Profile() {
             { username, oldPassword, newPassword },
             { headers: { Authorization: `Bearer ${token}` } }
           );
-          alert(response.data.message);
+          toast.success(response.data.message);
+          setIsEditPassword(false);
+
         } catch (error) {
           console.error('Error updating password:', error);
-          alert(error.response.data.message || 'Error updating password');
+          toast.error(error.response.data.message || 'Error updating password');
         }
       }
     }
@@ -158,64 +164,139 @@ function Profile() {
   }
 
   return (
-    <div className="profile-container">
-      <h1>Profile</h1>
-      <div className="profile-grid">
-        <div className="profile-photo-container">
-          {imagePreview && <img src={imagePreview} alt="Profile Preview" className="profile-photo" />}
+    // <div className="profile-container">
+    //   <h1 className="font-bold text-3xl">Profile</h1>
+    //   <div className="profile-grid">
+    //     <div className="profile-photo-container">
+    //       {imagePreview && <img src={imagePreview} alt="Profile Preview" className="profile-photo" />}
+    //     </div>
+    //     <div className="profile-details">
+    //       {isEditing ? (
+    //         <>
+    //           <label>Name:</label>
+    //           <input type="text" name="name" value={user.name} onChange={handleInputChange} />
+    //           <label>Address:</label>
+    //           <input type="text" name="address" value={user.address} onChange={handleInputChange} />
+    //           <label>Email:</label>
+    //           <input type="email" name="email" value={user.email} onChange={handleInputChange} />
+    //           <label>Phone Number:</label>
+    //           <input type="tel" name="phone" value={user.phone} onChange={handleInputChange} />
+    //           <label>Photo:</label>
+    //           <input type="file" name="photo" onChange={handlePhotoChange} />
+    //           <button onClick={handleSave}>Save Profile</button>
+    //         </>
+    //       ) : (
+    //         <>
+    //           <div className="profile-info">
+    //             <label>Name:</label>
+    //             <p>{user.name}</p>
+    //             <label>Address:</label>
+    //             <p>{user.address}</p>
+    //             <label>Email:</label>
+    //             <p>{user.email}</p>
+    //             <label>Phone Number:</label>
+    //             <p>{user.phone}</p>
+    //           </div>
+    //           <button onClick={handleEdit}>Edit Profile</button>
+    //         </>
+    //       )}
+    //     </div>
+
+    //     <div className="profile-details">
+    //       {
+    //         isEditPassword ? (
+    //           <>
+    //             <label>Old Password:</label>
+    //             <input type="text" name="Old Password" value={oldPassword} onChange={handleOldPasswordChange} />
+    //             <label>New Password:</label>
+    //             <input type="text" name="New Password" value={newPassword} onChange={handleNewPasswordChange} />
+    //             <button onClick={handleUpdatePass}>Update Password</button>
+    //           </>
+    //         ) : (
+    //           <>
+    //             <button onClick={handleEditPassword}>Edit Password</button>
+    //           </>
+    //         )
+    //       }
+
+    //     </div>
+    //   </div>
+    // </div>
+    <div className="container mx-auto p-6 bg-white border border-gray-300 rounded-lg shadow-sm">
+      <h1 className="text-center text-2xl font-bold mb-6">Profile</h1>
+      <div className="grid gap-6 justify-items-center">
+        <div className="flex justify-center">
+          {imagePreview && <img src={imagePreview} alt="Profile Preview" className="w-36 h-36 rounded-full object-cover mb-6" />}
         </div>
-        <div className="profile-details">
+        <div className="w-full">
           {isEditing ? (
             <>
-              <label>Name:</label>
-              <input type="text" name="name" value={user.name} onChange={handleInputChange} />
-              <label>Address:</label>
-              <input type="text" name="address" value={user.address} onChange={handleInputChange} />
-              <label>Email:</label>
-              <input type="email" name="email" value={user.email} onChange={handleInputChange} />
-              <label>Phone Number:</label>
-              <input type="tel" name="phone" value={user.phone} onChange={handleInputChange} />
-              <label>Photo:</label>
-              <input type="file" name="photo" onChange={handlePhotoChange} />
-              <button onClick={handleSave}>Save Profile</button>
+              <div className="grid gap-4 mb-4">
+                <label className="font-semibold">Name:</label>
+                <input type="text" name="name" value={user.name} onChange={handleInputChange} className="border rounded-lg p-2" />
+                <label className="font-semibold">Address:</label>
+                <input type="text" name="address" value={user.address} onChange={handleInputChange} className="border rounded-lg p-2" />
+                <label className="font-semibold">Email:</label>
+                <input type="email" name="email" value={user.email} onChange={handleInputChange} className="border rounded-lg p-2" />
+                <label className="font-semibold">Phone Number:</label>
+                <input type="tel" name="phone" value={user.phone} onChange={handleInputChange} className="border rounded-lg p-2" />
+                <label className="font-semibold">Photo:</label>
+                <input type="file" name="photo" onChange={handlePhotoChange} className="border rounded-lg p-2" />
+              </div>
+              <button onClick={handleSave} className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700">
+                Save Profile
+              </button>
             </>
           ) : (
             <>
-              <div className="profile-info">
-                <label>Name:</label>
-                <p>{user.name}</p>
-                <label>Address:</label>
-                <p>{user.address}</p>
-                <label>Email:</label>
-                <p>{user.email}</p>
-                <label>Phone Number:</label>
-                <p>{user.phone}</p>
+              <div className="grid gap-2 mb-4">
+                <div className="flex flex-row gap-4">
+                  <label className="font-semibold">Name:</label>
+                  <p>{user.name}</p>
+                </div>
+                <div className="flex flex-row gap-4">
+                  <label className="font-semibold">Address:</label>
+                  <p>{user.address}</p>
+                </div>
+                <div className="flex flex-row gap-4">
+                  <label className="font-semibold">Email:</label>
+                  <p>{user.email}</p>
+                </div>
+                <div className="flex flex-row gap-4">
+                  <label className="font-semibold">Phone Number:</label>
+                  <p>{user.phone}</p>
+                </div>
               </div>
-              <button onClick={handleEdit}>Edit Profile</button>
+              <button onClick={handleEdit} className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700">
+                Edit Profile
+              </button>
             </>
           )}
         </div>
-
-        <div className="profile-details">
-          {
-            isEditPassword ? (
-              <>
-                <label>Old Password:</label>
-                <input type="text" name="Old Password" value={oldPassword} onChange={handleOldPasswordChange} />
-                <label>New Password:</label>
-                <input type="text" name="New Password" value={newPassword} onChange={handleNewPasswordChange} />
-                <button onClick={handleUpdatePass}>Update Password</button>
-              </>
-            ) : (
-              <>
-                <button onClick={handleEditPassword}>Edit Password</button>
-              </>
-            )
-          }
-
+        <div className="w-full">
+          {isEditPassword ? (
+            <>
+              <div className="grid gap-4 mb-4">
+                <label className="font-semibold">Old Password:</label>
+                <input type="text" name="oldPassword" value={oldPassword} onChange={handleOldPasswordChange} className="border rounded-lg p-2" />
+                <label className="font-semibold">New Password:</label>
+                <input type="text" name="newPassword" value={newPassword} onChange={handleNewPasswordChange} className="border rounded-lg p-2" />
+              </div>
+              <button onClick={handleUpdatePass} className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700">
+                Update Password
+              </button>
+            </>
+          ) : (
+            <button onClick={handleEditPassword} className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700">
+              Edit Password
+            </button>
+          )}
         </div>
       </div>
+      <Toaster />
+
     </div>
+
   );
 }
 

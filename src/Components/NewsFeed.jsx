@@ -56,9 +56,9 @@ const NewsFeed = () => {
   return (
     <div className="news-feed">
       <div className="header">
-        <h2>Posts</h2>
+        <h2 className='font-bold text-3xl '>Posts</h2>
         {userRole !== "Student" && (
-          <button onClick={handleShareClick}>Share in Feed</button>
+          <button onClick={handleShareClick} className='p-3 bg-primarycolor hover:bg-primarycolorhover text-white'>Share in Feed</button>
         )}
       </div>
       {showForm && (
@@ -83,11 +83,11 @@ const NewsFeed = () => {
         {posts.length > 0 ? (
           posts.map((post, index) => (
             <div key={index} className="post">
-              <h3>{post.title}</h3>
-              <p>{post.description}</p>
-              <div className="post-info">
-                <span>{post.date}</span>
+              <h3 className='font-semibold'>{post.title}</h3>
+              <p className='text-sm'>{post.description}</p>
+              <div className="post-info flex justify-between">
                 <span>Posted by: {post.name}</span>
+                <span>{post.date}</span>
               </div>
             </div>
           ))

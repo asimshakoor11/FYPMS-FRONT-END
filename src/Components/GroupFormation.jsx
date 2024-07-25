@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Styles/StudentList.css";
 import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
 
 const GroupFormation = () => {
     const [groupNumber, setGroupNumber] = useState("");
@@ -47,13 +48,12 @@ const GroupFormation = () => {
         try {
             // const response = await axios.get('http://localhost:5000/api/groups');
             const response = await axios.get('https://fypms-back-end.vercel.app/api/groups');
-            setGroups(response.data);
+            const sortedGroups = response.data.sort((a, b) => a.number - b.number);
+            setGroups(sortedGroups);
         } catch (error) {
             console.error('Error fetching groups:', error);
         }
     };
-
-
 
     const handleAddToGroup = async () => {
         if (selectedStudents.length > 0 && selectedSupervisor && groupNumber && projectTitle) {
@@ -65,7 +65,7 @@ const GroupFormation = () => {
 
             // Check if adding more students exceeds the maximum limit of 4
             if (totalMembers > 4) {
-                alert("Cannot add more than 4 members to a group.");
+                toast.error("Cannot add more than 4 members to a group.");
                 return;
             }
 
@@ -73,7 +73,7 @@ const GroupFormation = () => {
                 if (existingGroup) {
                     // Update existing group with new members
                     // const response = await axios.put(`http://localhost:5000/api/groups/${existingGroup._id}`, {
-                    const response = await axios.put(`https://fypms-back-end.vercel.app/api/groups/${existingGroup._id}`, {
+                        const response = await axios.put(`https://fypms-back-end.vercel.app/api/groups/${existingGroup._id}`, {
                         members: [...existingGroup.members.map(member => member._id), ...selectedStudents],
                     });
                     const updatedGroup = response.data;
@@ -86,7 +86,7 @@ const GroupFormation = () => {
                 } else {
                     // Create a new group
                     // const response = await axios.post('http://localhost:5000/api/groups', {
-                    const response = await axios.post('https://fypms-back-end.vercel.app/api/groups', {
+                        const response = await axios.post('https://fypms-back-end.vercel.app/api/groups', {
                         number: groupNumber,
                         members: selectedStudents,
                         supervisor: selectedSupervisor,
@@ -98,7 +98,7 @@ const GroupFormation = () => {
                 }
 
                 // Reset form fields
-                alert('Group Registered Successfully');
+                toast.success('Group Registered Successfully');
 
                 setGroupNumber("");
                 setSelectedStudents([]);
@@ -106,10 +106,10 @@ const GroupFormation = () => {
                 setProjectTitle("");
             } catch (error) {
                 console.error('Error creating or updating group:', error);
-                alert('Error creating or updating group. Please try again.');
+                toast.error('Error creating or updating group. Please try again.');
             }
         } else {
-            alert("Please select students, a supervisor, and enter a group number and project title.");
+            toast.error("Please select students, a supervisor, and enter a group number and project title.");
         }
     };
 
@@ -128,7 +128,7 @@ const GroupFormation = () => {
 
         } catch (error) {
             console.error('Error removing member from group:', error);
-            alert('Error removing member from group. Please try again.');
+            toast.error('Error removing member from group. Please try again.');
         }
     };
 
@@ -143,7 +143,7 @@ const GroupFormation = () => {
 
         } catch (error) {
             console.error('Error deleting group:', error);
-            alert('Error deleting group. Please try again.');
+            toast.error('Error deleting group. Please try again.');
         }
     };
 
@@ -162,76 +162,111 @@ const GroupFormation = () => {
     );
 
     return (
-        <div>
-            <h3>Add Students to Group</h3>
-            <select
-                multiple
-                className="custom-select"
-                value={selectedStudents}
-                onChange={(e) => setSelectedStudents(Array.from(e.target.selectedOptions, option => option.value))}
-            >
-                {availableStudents.map((student) => (
-                    <option key={student._id} value={student._id}>
-                        {student.name} ({student.username})
+        <div className="container">
+            <h3 className="font-bold text-3xl text-center">Add Students to Group</h3>
+            <div className="mt-10">
+
+                <label htmlFor="multiselect" className="font-semibold">Select Students</label>
+                <select
+                    multiple
+                    className="custom-select mb-5 mt-2"
+                    value={selectedStudents}
+                    onChange={(e) => setSelectedStudents(Array.from(e.target.selectedOptions, option => option.value))}
+                >
+                    {availableStudents.map((student) => (
+                        <option key={student._id} value={student._id}>
+                            {student.name} ({student.username})
+                        </option>
+                    ))}
+                </select>
+                <label htmlFor="selectsupervisor" className="font-semibold">Select Supervisor</label>
+
+                <select
+                    value={selectedSupervisor}
+                    onChange={(e) => setSelectedSupervisor(e.target.value)}
+                    className="w-full mt-2 border-2 border-gray-300 p-3 rounded "
+                >
+                    <option value="" disabled>
+                        Select Supervisor
                     </option>
-                ))}
-            </select>
-            <select
-                value={selectedSupervisor}
-                onChange={(e) => setSelectedSupervisor(e.target.value)}
-            >
-                <option value="" disabled>
-                    Select Supervisor
-                </option>
-                {supervisors.map((supervisor) => (
-                    <option key={supervisor._id} value={supervisor._id}>
-                        {supervisor.name} ({supervisor.username})
-                    </option>
-                ))}
-            </select>
-            <input
-                type="text"
-                placeholder="Group Number"
-                value={groupNumber}
-                onChange={handleGroupNumberChange}
-                required
-            />
-            <input
-                type="text"
-                placeholder="Project Title"
-                value={projectTitle}
-                onChange={(e) => setProjectTitle(e.target.value)}
-                required
-            />
-            <button onClick={handleAddToGroup}>Add to Group</button>
+                    {supervisors.map((supervisor) => (
+                        <option key={supervisor._id} value={supervisor._id}>
+                            {supervisor.name} ({supervisor.username})
+                        </option>
+                    ))}
+                </select>
+                <div className="w-full flex gap-5 mt-5">
+                    <input
+                        className="w-1/2 p-3"
+                        type="text"
+                        placeholder="Group Number"
+                        value={groupNumber}
+                        onChange={handleGroupNumberChange}
+                        required
+                    />
+                    <input
+                        className="w-1/2 p-3"
+
+                        type="text"
+                        placeholder="Project Title"
+                        value={projectTitle}
+                        onChange={(e) => setProjectTitle(e.target.value)}
+                        required
+                    />
+                </div>
+
+                <button onClick={handleAddToGroup} className="p-3 bg-[#007bff] hover:bg-[#0056b3] text-white mt-5">Add to Group</button>
+            </div>
+
 
             <div className="group-list">
-                <h2>Group List</h2>
+                <h2 className="font-bold text-3xl text-center mt-10">Registered Groups</h2>
                 {groups.map((group, index) => (
-                    <div key={index}>
-                        <h3>Group {group.number}</h3>
+                    <div key={index} className="mt-10 flex flex-col gap-4">
+                        <h3 className="font-semibold text-2xl underline">Group {group.number}</h3>
                         <p><strong>Supervisor:</strong> {group.supervisor.name} ({group.supervisor.username})</p>
                         <p><strong>Project Title:</strong> {group.projectTitle}</p>
-                        <ul>
-                            {group.members.map((student) => (
-                                <li key={student._id}>
-                                    {student.name} ({student.username})
-                                    <button
-                                        onClick={() =>
-                                            handleRemoveFromGroup(group._id, student._id)
-                                        }
-                                    >
-                                        Remove
-                                    </button>
-                                </li>
-                            ))}
-                        </ul>
-                        <button onClick={() => handleDeleteGroup(group._id)}>
-                            Delete Group
-                        </button>
+                        <h3 className="font-semibold text-xl">Members</h3>
+                        <div>
+                            <table className="w-full table-auto rounded ">
+                                <thead>
+                                    <tr className="bg-gray-200">
+                                        <th className="px-4 py-2 text-left w-1/3">Name</th>
+                                        <th className="px-4 py-2 text-left w-1/3">Roll Number</th>
+                                        <th className="px-4 py-2 text-left w-1/3">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {group.members.map((student) => (
+                                        <tr key={student._id} className="border-b">
+                                            <td className="px-4 py-2">{student.name}</td>
+                                            <td className="px-4 py-2">{student.username}</td>
+                                            <td className="px-4 py-2">
+                                                <button
+                                                    className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-700"
+                                                    onClick={() => handleRemoveFromGroup(group._id, student._id)}
+                                                >
+                                                    Remove
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            <div className="mt-4">
+                                <button
+                                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
+                                    onClick={() => handleDeleteGroup(group._id)}
+                                >
+                                    Delete Group
+                                </button>
+                            </div>
+                        </div>
+
                     </div>
                 ))}
             </div>
+            <Toaster/>
         </div>
     );
 };

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./Styles/LoginForm.css";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
+
 
 function LoginForm() {
   const [username, setUsername] = useState("");
@@ -17,7 +19,7 @@ function LoginForm() {
     // Check if the user exists in local storage
 
     if (username === "" || password === "" || role === "") {
-      alert("Fill the credientials")
+      toast.error("Fill the credientials")
     }
     else {
 
@@ -30,9 +32,9 @@ function LoginForm() {
           });
 
           // Assuming your backend sends back username and role upon successful login
-          
+
           // Example of what to do after successful login
-          alert(`Logged in ${response.data.message}: ${response.data.username}`);
+          toast.success(`Logged in ${response.data.message}: ${response.data.username}`);
           // You can redirect or update state to indicate successful login
           localStorage.setItem("loggedInUser", response.data.username);
           localStorage.setItem("loggedInUserName", response.data.name);
@@ -43,7 +45,7 @@ function LoginForm() {
 
         } catch (error) {
           console.error('Login error:', error);
-          alert('Login failed. Please check your credentials.');
+          toast.error('Login failed. Please check your credentials.');
           // Handle login error (e.g., display error message)
         }
       }
@@ -54,9 +56,9 @@ function LoginForm() {
             username,
             password,
           });
-          
+
           // Example of what to do after successful login
-          alert(`Logged in ${response.data.message}: ${response.data.username}`);
+          toast.success(`Logged in ${response.data.message}: ${response.data.username}`);
           // You can redirect or update state to indicate successful login
           localStorage.setItem("loggedInUser", response.data.username);
           localStorage.setItem("loggedInUserName", response.data.name);
@@ -66,7 +68,7 @@ function LoginForm() {
 
         } catch (error) {
           console.error('Login error:', error);
-          alert('Login failed. Please check your credentials.');
+          toast.error('Login failed. Please check your credentials.');
           // Handle login error (e.g., display error message)
         }
 
@@ -79,13 +81,13 @@ function LoginForm() {
             password,
           });
           localStorage.setItem('token', response.data.token);
-          alert('Login successful');
+          toast.success('Login successful');
           localStorage.setItem("loggedInUser", username);
           localStorage.setItem("loggedInUserName", "Fyp Committee");
           localStorage.setItem("userRole", role);
           navigate("/CommitteeDashboard");
         } catch (error) {
-          alert(error.response.data.message || 'Login failed.');
+          toast.error(error.response.data.message || 'Login failed.');
         }
       }
     }
@@ -94,7 +96,7 @@ function LoginForm() {
   const handleRegister = async () => {
     // this registration is only for committee
     if (username === "" || password === "" || role === "") {
-      alert("Please fill in all fields.");
+      toast.success("Please fill in all fields.");
       return;
     }
 
@@ -105,38 +107,62 @@ function LoginForm() {
         password,
         role,
       });
-      alert(response.data.message);
+      toast.success(response.data.message);
       setUsername('');
       setPassword('');
       setRole('');
     } catch (error) {
-      alert(error.response.data.message || 'Registration failed.');
+      toast.error(error.response.data.message || 'Registration failed.');
     }
   };
 
   return (
-    <div>
-      <form className="login-form">
-        <h1>FYP Management System</h1>
-        <label>Username:</label>
-        <input type="text" value={username} onChange={handleUsernameChange} />
-        <label>Password:</label>
-        <input type="password" value={password} onChange={handlePasswordChange} />
-        <label>Select Role:</label>
-        <select value={role} onChange={handleRoleChange}>
+    <div className="flex justify-center items-center min-h-screen" style={{ backgroundImage: 'url(/images/background.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <form className="bg-white p-6 rounded shadow-md w-80">
+        <h1 className="text-2xl font-bold mb-4 text-center">FYP Management System</h1>
+        <label className="block mb-2">Username:</label>
+        <input
+          type="text"
+          value={username}
+          onChange={handleUsernameChange}
+          className="w-full p-2 mb-4 border rounded"
+        />
+        <label className="block mb-2">Password:</label>
+        <input
+          type="password"
+          value={password}
+          onChange={handlePasswordChange}
+          className="w-full p-2 mb-4 border rounded"
+        />
+        <label className="block mb-2">Select Role:</label>
+        <select
+          value={role}
+          onChange={handleRoleChange}
+          className="w-full p-2 mb-4 border rounded"
+        >
           <option value="">Select</option>
           <option value="Student">Student</option>
           <option value="Supervisor">Supervisor</option>
           <option value="Committee">Committee</option>
         </select>
-        <button type="button" onClick={handleSubmit}>
+        <button
+          type="button"
+          onClick={handleSubmit}
+          className="w-full p-2 bg-primarycolor text-white rounded hover:bg-primarycolorhover"
+        >
           Login
         </button>
-       {/* <button type="button" onClick={handleRegister}>
-          Register
-        </button> */}
+        {/* <button
+      type="button"
+      onClick={handleRegister}
+      className="w-full p-2 mt-4 bg-primarycolor text-white rounded hover:bg-primarycolorhover"
+    >
+      Register
+    </button> */}
       </form>
+      <Toaster />
     </div>
+
   );
 }
 
