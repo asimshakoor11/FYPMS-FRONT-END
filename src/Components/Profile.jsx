@@ -160,7 +160,6 @@ function Profile() {
         }
       }
     }
-
   }
 
   return (
