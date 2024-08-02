@@ -19,7 +19,7 @@
 }
 
 .sidebar {
-  min-width: 250px;
+  min-width: 300px;
   background-color: #007bff;
   color: white;
   display: flex;

@@ -16,7 +16,7 @@ body {
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   font-style: normal;
-  font-size: 16px;
+  font-size: 16px !important;
 }
 
 .container{
@@ -26,4 +26,8 @@ body {
   border: 1px solid #ccc;
   border-radius: 10px;
   background-color: #fff;
+}
+
+label{
+  font-size: 16px !important;
 }
