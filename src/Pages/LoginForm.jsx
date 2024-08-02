@@ -24,8 +24,8 @@ function LoginForm() {
 
       if (role === "Student") {
         try {
-          const response = await axios.post('http://localhost:5000/api/students/login', {
-            // const response = await axios.post('https://fypms-back-end.vercel.app/api/students/login', {
+          // const response = await axios.post('http://localhost:5000/api/students/login', {
+            const response = await axios.post('https://fypms-back-end.vercel.app/api/students/login', {
             username,
             password,
           });
@@ -50,8 +50,8 @@ function LoginForm() {
       }
       else if (role === "Supervisor") {
         try {
-          const response = await axios.post('http://localhost:5000/api/supervisors/login', {
-            // const response = await axios.post('https://fypms-back-end.vercel.app/api/supervisors/login', {
+          // const response = await axios.post('http://localhost:5000/api/supervisors/login', {
+            const response = await axios.post('https://fypms-back-end.vercel.app/api/supervisors/login', {
             username,
             password,
           });
@@ -74,8 +74,8 @@ function LoginForm() {
       }
       else if (role === "Committee") {
         try {
-          const response = await axios.post('http://localhost:5000/api/authCommittee/login', {
-            // const response = await axios.post('https://fypms-back-end.vercel.app/api/authCommittee/login', {
+          // const response = await axios.post('http://localhost:5000/api/authCommittee/login', {
+            const response = await axios.post('https://fypms-back-end.vercel.app/api/authCommittee/login', {
             username,
             password,
           });
