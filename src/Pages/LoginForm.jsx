@@ -100,8 +100,8 @@ function LoginForm() {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/authCommittee/register', {
-        // const response = await axios.post('https://fypms-back-end.vercel.app/api/authCommittee/register', {
+      // const response = await axios.post('http://localhost:5000/api/authCommittee/register', {
+        const response = await axios.post('https://fypms-back-end.vercel.app/api/authCommittee/register', {
         username,
         password,
         role,
