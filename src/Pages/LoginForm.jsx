@@ -151,13 +151,13 @@ function LoginForm() {
         >
           Login
         </button>
-        <button
+        {/* <button
           type="button"
           onClick={handleRegister}
           className="w-full p-2 mt-4 bg-primarycolor text-white rounded hover:bg-primarycolorhover"
         >
           Register
-        </button>
+        </button> */}
       </form>
       <Toaster />
     </div>
