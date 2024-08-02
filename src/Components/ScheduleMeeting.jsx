@@ -69,7 +69,7 @@ const ScheduleMeeting = ({ groupnumber }) => {
 
   const fetchMeetingDetails = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/meetings/meeting-details/${id}`);
+      const response = await fetch(`https://fypms-back-end.vercel.app/api/meetings/meeting-details/${id}`);
       const data = await response.json();
       console.log(data)
       setMeetingDetails(data);
