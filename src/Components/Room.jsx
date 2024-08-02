@@ -10,7 +10,9 @@ const Room = () => {
   const query = new URLSearchParams(useLocation().search);
   const meetingAgenda = query.get('agenda');
   const number = query.get('number');
-  console.log(number, meetingAgenda, roomID)
+
+  const role = localStorage.getItem("userRole");
+
 
   // const roomID  = RoomCode
   const meeting = async (element) => {
@@ -37,11 +39,17 @@ const Room = () => {
   return (
     <div className="flex bg-white">
       <div ref={meeting} style={{ width: "80%", height: "100%" }}></div>
-      <div style={{ width: "20%", height: "100%" }}>
-        <AudioRecorder meetingAgenda={meetingAgenda} number={number} />
-      </div>
-
-    </div>
+      {
+        role === 'Student' ? (
+          <>
+          </>
+        ) : (
+          <div style={{ width: "20%", height: "100%" }}>
+            <AudioRecorder meetingAgenda={meetingAgenda} number={number} />
+          </div>
+        )
+      }
+    </div >
   );
 };
 

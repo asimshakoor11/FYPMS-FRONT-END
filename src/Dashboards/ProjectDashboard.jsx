@@ -55,7 +55,6 @@ function ProjectDashboard() {
   const [FinalRoomCode, setFinalRoomCode] = useState("");
   const [meetingAgenda, setMeetingAgenda] = useState("");
 
-
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -179,7 +178,7 @@ function ProjectDashboard() {
 
     try {
       // await axios.put(`http://localhost:5000/api/groups/${groupId}/marks`, {
-        await axios.put(`https://fypms-back-end.vercel.app/api/groups/${groupId}/marks`, {
+      await axios.put(`https://fypms-back-end.vercel.app/api/groups/${groupId}/marks`, {
         marks: updatedMarks,
         phase: selectedPhase,
       });
@@ -262,7 +261,7 @@ function ProjectDashboard() {
       if (task.file) formData.append('file', task.file);
 
       // await axios.post(`http://localhost:5000/api/groups/${groupId}/tasks`, formData, {
-        await axios.post(`https://fypms-back-end.vercel.app/api/groups/${groupId}/tasks`, formData, {
+      await axios.post(`https://fypms-back-end.vercel.app/api/groups/${groupId}/tasks`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -281,7 +280,7 @@ function ProjectDashboard() {
       formData.append('file', file);
 
       // const response = await axios.post(`http://localhost:5000/api/groups/${groupId}/tasks/submit`, formData, {
-        const response = await axios.post(`https://fypms-back-end.vercel.app/api/groups/${groupId}/tasks/submit`, formData, {
+      const response = await axios.post(`https://fypms-back-end.vercel.app/api/groups/${groupId}/tasks/submit`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -350,7 +349,7 @@ function ProjectDashboard() {
     e.preventDefault();
     try {
       // await axios.post(`http://localhost:5000/api/groups/${groupId}/attendance`, {
-        await axios.post(`https://fypms-back-end.vercel.app/api/groups/${groupId}/attendance`, {
+      await axios.post(`https://fypms-back-end.vercel.app/api/groups/${groupId}/attendance`, {
         title,
         date,
         attendance,
@@ -444,6 +443,17 @@ function ProjectDashboard() {
 
     // Construct the URL with query parameters
     const url = `/room/${RoomCode}?agenda=${encodeURIComponent(meetingAgenda)}&number=${encodeURIComponent(group.number)}`;
+
+    // Open the Room component in a new tab
+    window.open(url, '_blank');
+  };
+
+  const handleRoomCodeStudent = () => {
+    setFinalRoomCode(RoomCode);
+    setIsRoomCodeVis(false);
+
+    // Construct the URL with query parameters
+    const url = `/room/${RoomCode}`;
 
     // Open the Room component in a new tab
     window.open(url, '_blank');
@@ -829,19 +839,30 @@ function ProjectDashboard() {
                       />
                     </div>
 
-                    <div className="flex items-center gap-5">
-                      <label className="font-semibold text-xl">
-                        Meeting Agenda:
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        placeholder="Title"
-                        value={meetingAgenda}
-                        onChange={(e) => setMeetingAgenda(e.target.value)}
-                        className="py-1.5 md:py-2 px-4 rounded-full max-w-[14rem] text-black outline-0"
-                      />
-                    </div>
+                    {
+                      role === "Student" ? (
+                        <>
+                        </>
+
+                      ) : (
+                        <div className="flex items-center gap-5">
+                          <label className="font-semibold text-xl">
+                            Meeting Agenda:
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            placeholder="Title"
+                            value={meetingAgenda}
+                            onChange={(e) => setMeetingAgenda(e.target.value)}
+                            className="py-1.5 md:py-2 px-4 rounded-full max-w-[14rem] text-black outline-0"
+                          />
+                        </div>
+
+                      )
+                    }
+
+
 
                     <button
                       type="submit"
@@ -1062,7 +1083,7 @@ function ProjectDashboard() {
                               <td className="py-5 px-4 border-b  text-nowrap w-1/6">
                                 {task.filePath && (
                                   // <a href={`http://localhost:5000/${task.filePath}`} className="bg-primarycolor hover:bg-primarycolorhover p-2 text-white rounded" target="_blank" rel="noopener noreferrer" download>
-                                  <a href={`${task.filePath}`} className="bg-primarycolor hover:bg-primarycolorhover p-2 text-white rounded" target="_blank" rel="noopener noreferrer" download> 
+                                  <a href={`${task.filePath}`} className="bg-primarycolor hover:bg-primarycolorhover p-2 text-white rounded" target="_blank" rel="noopener noreferrer" download>
                                     Download File
                                   </a>
                                 )}
