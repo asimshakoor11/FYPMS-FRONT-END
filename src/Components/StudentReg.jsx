@@ -7,12 +7,13 @@ function StudentReg() {
   const [rollNumber, setRollNumber] = useState('FA20-BSE-');
   const [students, setStudents] = useState([]);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const handleAddStudent = async () => {
     if (name && rollNumber) {
       try {
         // await axios.post('http://localhost:5000/api/students/register', {
-          await axios.post('https://fypms-back-end.vercel.app/api/students/register', {
+        await axios.post('https://fypms-back-end.vercel.app/api/students/register', {
           name,
           username: rollNumber,
           password: 'student@123', // Default password
@@ -24,7 +25,7 @@ function StudentReg() {
         fetchStudents(); // Optional: Refresh student list after registration
       } catch (error) {
         setError(error.response.data.message || 'Registration failed.');
-        toast.success(error.response.data.message || 'Registration failed.')
+        toast.error(error.response.data.message || 'Registration failed.')
 
       }
     } else {
@@ -42,8 +43,12 @@ function StudentReg() {
       const response = await axios.get('https://fypms-back-end.vercel.app/api/students');
       const sortedStudents = sortStudentsByRollNumber(response.data);
       setStudents(sortedStudents);
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.error('Error fetching students:', error);
+      toast.error('Registration failed.')
+
     }
   };
 
@@ -103,36 +108,40 @@ function StudentReg() {
       <div className='mt-10'>
         <h1 className='font-bold text-3xl'>Student List</h1>
 
-        <div>
-          <table className="w-full table-auto rounded mt-5">
-            <thead>
-              <tr className="bg-gray-200">
-                <th className="px-4 py-2 text-left">Name</th>
-                <th className="px-4 py-2 text-left">Roll No</th>
-                <th className="px-4 py-2 text-left">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {students.map((student, index) => (
-                <tr key={index} className="border-b">
-                  <td className="px-4 py-2">{student.name}</td>
-                  <td className="px-4 py-2">{student.username}</td>
-                  <td className="px-4 py-2">
-                    <button
-                      className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-700"
-                      onClick={() => handleDeleteStudent(student.username)}
-                    >
-                      Delete
-                    </button>
-                  </td>
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <div>
+            <table className="w-full table-auto rounded mt-5">
+              <thead>
+                <tr className="bg-gray-200">
+                  <th className="px-4 py-2 text-left">Name</th>
+                  <th className="px-4 py-2 text-left">Roll No</th>
+                  <th className="px-4 py-2 text-left">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {students.map((student, index) => (
+                  <tr key={index} className="border-b">
+                    <td className="px-4 py-2">{student.name}</td>
+                    <td className="px-4 py-2">{student.username}</td>
+                    <td className="px-4 py-2">
+                      <button
+                        className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-700"
+                        onClick={() => handleDeleteStudent(student.username)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
 
-      <Toaster/>
+      <Toaster />
 
 
     </div>

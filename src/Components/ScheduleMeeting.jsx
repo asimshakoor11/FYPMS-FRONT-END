@@ -21,7 +21,7 @@ const ScheduleMeeting = ({ groupnumber }) => {
 
     try {
       // const response = await fetch('http://localhost:5000/api/meetings/schedule-meeting', {
-        const response = await fetch('https://fypms-back-end.vercel.app/api/meetings/schedule-meeting', {
+      const response = await fetch('https://fypms-back-end.vercel.app/api/meetings/schedule-meeting', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -30,12 +30,16 @@ const ScheduleMeeting = ({ groupnumber }) => {
       });
       const result = await response.json();
       console.log(result)
+      fetchMeetingDetails(groupnumber);
+
       // setMeetingDetails(result);
       toast.success('Meeting scheduled successfully!')
       setMessage('Meeting scheduled successfully!');
     } catch (error) {
       setMessage('Error: ' + error.message);
       toast.success('Error: ' + error.message)
+      fetchMeetingDetails(null);
+
       // setMeetingDetails(null);
     }
   };
@@ -103,24 +107,29 @@ const ScheduleMeeting = ({ groupnumber }) => {
         <button type="submit" className="bg-primarycolor hover:bg-primarycolorhover p-3 text-white">Schedule Meeting</button>
       </form>
       {message && <p>{message}</p>}
-      {meetingDetails && meetingDetails.meetings.length > 0 && (
-        <div className='flex flex-col gap-2 mt-10'>
-          <h2 className='font-bold text-3xl'>Meeting Details</h2>
-          {meetingDetails.meetings.slice().reverse().map((meeting, index) => (
-            <div className='flex gap-5 mt-5'>
-              <p>{++index}</p>
-
-              <div key={index} className='flex flex-col gap-2'>
-                <p><strong>Topic:</strong> {meeting.topic}</p>
-                <p><strong>Start Time:</strong> {new Date(meeting.start_time).toLocaleString()}</p>
-                <p><strong>Duration:</strong> {meeting.duration} minutes</p>
-                <p><strong>Join URL:</strong> <a href={meeting.join_url} target="_blank" rel="noopener noreferrer">{meeting.join_url}</a></p>
+      {meetingDetails  && meetingDetails.meetings ? (
+        meetingDetails.meetings.length > 0 ? (
+          <div className='flex flex-col gap-2 mt-10'>
+            <h2 className='font-bold text-3xl'>Meeting Details</h2>
+            {meetingDetails.meetings.slice().reverse().map((meeting, index) => (
+              <div key={meeting._id} className='flex gap-5 mt-5'> {/* Use a unique key */}
+                <p>{index + 1}</p> {/* Display index + 1 for numbering */}
+                <div className='flex flex-col gap-2'>
+                  <p><strong>Topic:</strong> {meeting.topic}</p>
+                  <p><strong>Start Time:</strong> {new Date(meeting.start_time).toLocaleString()}</p>
+                  <p><strong>Duration:</strong> {meeting.duration} minutes</p>
+                  <p><strong>Join URL:</strong> <a href={meeting.join_url} target="_blank" rel="noopener noreferrer">{meeting.join_url}</a></p>
+                </div>
               </div>
-            </div>
-
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <p>Loading meeting details...</p>
+        )
+      ) : (
+        <p> No meetings available for this group</p>
       )}
+
       {/* <div className="p-4">
         <h1 className="font-bold text-3xl">Real-Time Speech Recognition</h1>
         <div className="mt-4">

@@ -19,6 +19,7 @@ function GroupList() {
       } catch (error) {
         console.error('Error fetching groups:', error);
         setLoading(false); // Ensure loading state is updated even on error
+        toast.error("Error fetching groups");
       }
     };
     fetchGroups();

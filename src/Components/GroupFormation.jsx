@@ -11,6 +11,7 @@ const GroupFormation = () => {
     const [students, setStudents] = useState([]);
     const [supervisors, setSupervisors] = useState([]);
     const [groups, setGroups] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     // Fetch students from the backend
     useEffect(() => {
@@ -19,8 +20,12 @@ const GroupFormation = () => {
                 // const response = await axios.get('http://localhost:5000/api/students');
                 const response = await axios.get('https://fypms-back-end.vercel.app/api/students');
                 setStudents(response.data);
+                setLoading(false);
+
             } catch (error) {
                 console.error('Error fetching students:', error);
+                setLoading(false);
+
             }
         };
         fetchStudents();
@@ -33,8 +38,12 @@ const GroupFormation = () => {
                 // const response = await axios.get('http://localhost:5000/api/supervisors');
                 const response = await axios.get('https://fypms-back-end.vercel.app/api/supervisors');
                 setSupervisors(response.data);
+                setLoading(false);
+
             } catch (error) {
                 console.error('Error fetching supervisors:', error);
+                setLoading(false);
+
             }
         };
         fetchSupervisors();
@@ -50,8 +59,12 @@ const GroupFormation = () => {
             const response = await axios.get('https://fypms-back-end.vercel.app/api/groups');
             const sortedGroups = response.data.sort((a, b) => a.number - b.number);
             setGroups(sortedGroups);
+            setLoading(false);
+
         } catch (error) {
             console.error('Error fetching groups:', error);
+            toast.error("Error fetching groups");
+            setLoading(false);
         }
     };
 
@@ -73,7 +86,7 @@ const GroupFormation = () => {
                 if (existingGroup) {
                     // Update existing group with new members
                     // const response = await axios.put(`http://localhost:5000/api/groups/${existingGroup._id}`, {
-                        const response = await axios.put(`https://fypms-back-end.vercel.app/api/groups/${existingGroup._id}`, {
+                    const response = await axios.put(`https://fypms-back-end.vercel.app/api/groups/${existingGroup._id}`, {
                         members: [...existingGroup.members.map(member => member._id), ...selectedStudents],
                     });
                     const updatedGroup = response.data;
@@ -86,7 +99,7 @@ const GroupFormation = () => {
                 } else {
                     // Create a new group
                     // const response = await axios.post('http://localhost:5000/api/groups', {
-                        const response = await axios.post('https://fypms-back-end.vercel.app/api/groups', {
+                    const response = await axios.post('https://fypms-back-end.vercel.app/api/groups', {
                         number: groupNumber,
                         members: selectedStudents,
                         supervisor: selectedSupervisor,
@@ -161,6 +174,9 @@ const GroupFormation = () => {
             )
     );
 
+    if (loading) return <div className="container"><p>Loading...</p></div>;
+
+
     return (
         <div className="container">
             <h3 className="font-bold text-3xl text-center">Add Students to Group</h3>
@@ -173,11 +189,12 @@ const GroupFormation = () => {
                     value={selectedStudents}
                     onChange={(e) => setSelectedStudents(Array.from(e.target.selectedOptions, option => option.value))}
                 >
-                    {availableStudents.map((student) => (
-                        <option key={student._id} value={student._id}>
-                            {student.name} ({student.username})
-                        </option>
-                    ))}
+                    {
+                        availableStudents.map((student) => (
+                            <option key={student._id} value={student._id}>
+                                {student.name} ({student.username})
+                            </option>
+                        ))}
                 </select>
                 <label htmlFor="selectsupervisor" className="font-semibold">Select Supervisor</label>
 
@@ -266,7 +283,7 @@ const GroupFormation = () => {
                     </div>
                 ))}
             </div>
-            <Toaster/>
+            <Toaster />
         </div>
     );
 };

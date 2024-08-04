@@ -104,6 +104,7 @@ function ProjectDashboard() {
       // const response = await axios.get(`http://localhost:5000/api/zeogoCloudMeeting/data/${groupId}`);
       const response = await axios.get(`https://fypms-back-end.vercel.app/api/zeogoCloudMeeting/data/${groupId}`);
       setMeetingsData(response.data);
+
     } catch (err) {
       console.error(err);
     } finally {
@@ -123,9 +124,12 @@ function ProjectDashboard() {
       // const response = await fetch(`http://localhost:5000/api/meetings/meeting-details/${id}`);
       const response = await fetch(`https://fypms-back-end.vercel.app/api/meetings/meeting-details/${id}`);
       const data = await response.json();
-      console.log(data)
       setMeetingDetails(data);
+      setLoading(false);
+
     } catch (error) {
+      setLoading(false);
+
       toast.error('Error fetching meeting details: ' + error.message);
     }
   };
@@ -153,19 +157,6 @@ function ProjectDashboard() {
       setIsSidebarOpen(false);
     }
   };
-
-  // const handleUpdateMarks = async (updatedMarks) => {
-  //   try {
-  //     await axios.put(`http://localhost:5000/api/groups/${groupId}/marks`, { marks: updatedMarks });
-  //     // await axios.put(`https://fypms-back-end.vercel.app/api/groups/${groupId}/marks`, { marks: updatedMarks });
-  //     toast.success("Marks updated successfully");
-  //     fetchGroupByNumber();
-
-  //   } catch (err) {
-  //     toast.error("An error occurred while updating marks");
-  //   }
-  // };
-
 
   const handleSubmitMarks = async (event) => {
     event.preventDefault();
@@ -459,16 +450,13 @@ function ProjectDashboard() {
     window.open(url, '_blank');
   };
 
-
-
   const progress = group.progress || 0; // Assuming group.progress is a number between 0 and 100
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <div className="container"><p>Loading...</p></div>;
 
   if (!group || !attendance.length) {
-    return <p>No group or attendance data available. Relaod the page</p>;
+    return <div className="container"><p>No group or attendance data available. Relaod the page</p></div>;
   }
-
 
   return (
     <>
@@ -882,26 +870,30 @@ function ProjectDashboard() {
             <>
               <div className="flex flex-col items-start justify-start container">
                 <h1 className="text-3xl font-bold mb-4 text-center w-full">Meetings Records</h1>
-                {meetingsData && meetingsData.meetings.length === 0 ? (
-                  <p>No meetings available for this group</p>
+                {meetingsData ? (
+                  meetingsData.meetings.length === 0 ? (
+                    <p>No meetings available for this group</p>
+                  ) : (
+                    meetingsData.meetings.map((meeting) => (
+                      <div key={meeting._id} className="mt-4 bg-gray-100 text-black p-4 rounded shadow-lg w-full max-w-lg">
+                        <h2 className="text-xl font-bold mb-2">Meeting Agenda: {meeting.meetingAgenda}</h2>
+                        <p className="mb-2"><strong>Date:</strong> {new Date(meeting.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                        <audio controls src={meeting.audioUrl} />
+                        <h3 className="text-lg font-semibold mb-2">Transcript:</h3>
+                        <p className="mb-2">{meeting.transcription}</p>
+                        <h3 className="text-lg font-semibold mb-2">Summary:</h3>
+                        <ul>
+                          {meeting.summary.split('\n').map((line, index) => (
+                            <li key={index}>{line}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))
+                  )
                 ) : (
-                  meetingsData.meetings.map((meeting) => (
-                    <div key={meeting._id} className="mt-4 bg-gray-100 text-black p-4 rounded shadow-lg w-full max-w-lg">
-                      <h2 className="text-xl font-bold mb-2">Meeting Agenda: {meeting.meetingAgenda}</h2>
-                      <p className="mb-2"><strong>Date:</strong> {new Date(meeting.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
-                      <audio controls src={meeting.audioUrl} />
-
-                      <h3 className="text-lg font-semibold mb-2">Transcript:</h3>
-                      <p className="mb-2">{meeting.transcription}</p>
-                      <h3 className="text-lg font-semibold mb-2">Summary:</h3>
-                      <ul>
-                        {meeting.summary.split('\n').map((line, index) => (
-                          <li key={index}>{line}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))
+                  <p>Loading meetings...</p>
                 )}
+
               </div>
 
             </>
