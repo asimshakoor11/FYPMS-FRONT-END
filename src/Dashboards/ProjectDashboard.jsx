@@ -104,7 +104,6 @@ function ProjectDashboard() {
       // const response = await axios.get(`http://localhost:5000/api/zeogoCloudMeeting/data/${groupId}`);
       const response = await axios.get(`https://fypms-back-end.vercel.app/api/zeogoCloudMeeting/data/${groupId}`);
       setMeetingsData(response.data);
-
     } catch (err) {
       console.error(err);
     } finally {
@@ -115,7 +114,6 @@ function ProjectDashboard() {
   useEffect(() => {
     fetchMeetingsData();
   }, [groupId, selectedComponent]);
-
 
   const [meetingDetails, setMeetingDetails] = useState(null);
 
@@ -874,7 +872,7 @@ function ProjectDashboard() {
                   meetingsData.meetings.length === 0 ? (
                     <p>No meetings available for this group</p>
                   ) : (
-                    meetingsData.meetings.map((meeting) => (
+                    meetingsData.meetings.slice().reverse().map((meeting) => (
                       <div key={meeting._id} className="mt-4 bg-gray-100 text-black p-4 rounded shadow-lg w-full max-w-lg">
                         <h2 className="text-xl font-bold mb-2">Meeting Agenda: {meeting.meetingAgenda}</h2>
                         <p className="mb-2"><strong>Date:</strong> {new Date(meeting.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
