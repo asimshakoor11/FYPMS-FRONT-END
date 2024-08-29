@@ -50,6 +50,8 @@ function ProjectDashboard() {
   const [detailedRecords, setDetailedRecords] = useState([]);
   const [selectedPhase, setSelectedPhase] = useState('proposalDefense');
 
+  const [studentMarks, setStudentMarks] = useState({});
+
   const [RoomCode, setRoomCode] = useState("");
   const [isRoomCodeVis, setIsRoomCodeVis] = useState(true);
   const [FinalRoomCode, setFinalRoomCode] = useState("");
@@ -146,8 +148,6 @@ function ProjectDashboard() {
     }
   }, []);
 
-
-
   const [showTaskHistory, setShowTaskHistory] = useState(false); // State to control Task History visibility
 
   const closeSidebar = () => {
@@ -155,6 +155,35 @@ function ProjectDashboard() {
       setIsSidebarOpen(false);
     }
   };
+
+  const getMarksForPhase = (memberMarks, phase) => {
+    if (!memberMarks) return 0; // Return 0 if no marks are available
+    switch (phase) {
+      case "proposalDefense":
+        return memberMarks.proposalDefense || 0;
+      case "midEvaluation":
+        return memberMarks.midEvaluation || 0;
+      case "internalEvaluation":
+        return memberMarks.internalEvaluation || 0;
+      case "externalEvaluation":
+        return memberMarks.externalEvaluation || 0;
+      default:
+        return 0;
+    }
+  };
+
+  useEffect(() => {
+    // When phase changes, update marks based on selected phase
+    if (Array.isArray(group.members)) {
+      const updatedMarks = {};
+      group.members.forEach(student => {
+        const memberMarks = group.marks.find(mark => mark.studentId._id === student._id);
+        updatedMarks[student._id] = getMarksForPhase(memberMarks, selectedPhase);
+      });
+      setStudentMarks(updatedMarks);
+    }
+  }, [selectedPhase, group.marks, group.members]);
+
 
   const handleSubmitMarks = async (event) => {
     event.preventDefault();
@@ -177,6 +206,26 @@ function ProjectDashboard() {
       toast.error("An error occurred while updating marks");
     }
   };
+
+  // const handleSubmitMarks = async (event) => {
+  //   event.preventDefault();
+  //   const updatedMarks = Object.entries(studentMarks).map(([studentId, marks]) => ({
+  //     studentId,
+  //     marks: parseInt(marks, 10),
+  //   }));
+
+  //   try {
+  //     await axios.put(`https://fypms-back-end.vercel.app/api/groups/${groupId}/marks`, {
+  //       marks: updatedMarks,
+  //       phase: selectedPhase,
+  //     });
+  //     toast.success("Marks updated successfully");
+  //     fetchGroupByNumber();
+  //   } catch (err) {
+  //     toast.error("An error occurred while updating marks");
+  //   }
+  // };
+
 
   const calculateTotalMarks = (marks) => {
     return marks.proposalDefense + marks.midEvaluation + marks.internalEvaluation + marks.externalEvaluation;
@@ -592,14 +641,16 @@ function ProjectDashboard() {
                               type="number"
                               name={student._id}
                               className="p-3 font-medium"
-                              // defaultValue={group.marks.find(mark => mark.studentId._id === student._id)?.[selectedPhase] || 0}
-                              defaultValue={0}
+                              value={studentMarks[student._id] || 0}
+                              onChange={(e) => setStudentMarks({
+                                ...studentMarks,
+                                [student._id]: e.target.value
+                              })}
                             />
                           </label>
                           <br />
                         </div>
                       ))}
-
                       <button type="submit" className="bg-primarycolor hover:bg-primarycolorhover p-3 text-white">Save Marks</button>
                     </form>
                   </>
@@ -641,11 +692,7 @@ function ProjectDashboard() {
                   </table>
                 </div>
               </div>
-
-
-
             </>
-
           )}
           {selectedComponent === 'Schedule Meeting' && (
 
@@ -930,36 +977,35 @@ function ProjectDashboard() {
 
                       <h2 className="font-bold text-2xl mt-10 mb-5">Meetings Summary</h2>
 
-                      {detailedRecords.map((record, index) => (
-
-                        <div className="flex gap-5">
-                          <h3 className="font-semibold">{index + 1}.</h3>
-
-
-                          <li key={record._id} className="flex flex-col gap-5  mb-4">
-                            <div className="flex flex-col gap-3 ">
-
-                              <h3 className="font-semibold">Meeting Agenda: <span className="font-normal"> {record.title}</span></h3>
-                              <h3 className="font-semibold">Meeting Date:  <span className="font-normal">  {new Date(record.date).toLocaleDateString()} </span></h3>
-                              <div className="flex gap-5">
-
-                                <h3 className="font-semibold">Attendance:</h3>
+                      <table className="min-w-full">
+                        <thead className="bg-gray-200">
+                          <tr>
+                            <th className="px-4 py-2 text-left ">No.</th>
+                            <th className="px-4 py-2 text-left ">Meeting Agenda</th>
+                            <th className="px-4 py-2 text-left ">Meeting Date</th>
+                            <th className="px-4 py-2 text-left ">Attendance</th>
+                          </tr>
+                        </thead>
+                        <tbody className="">
+                          {detailedRecords.map((record, index) => (
+                            <tr key={record._id}>
+                              <td className="px-4 py-2 border whitespace-nowrap font-medium text-gray-900">{index + 1}</td>
+                              <td className="px-4 py-2 border whitespace-nowrap ">{record.title}</td>
+                              <td className="px-4 py-2 border whitespace-nowrap ">{new Date(record.date).toLocaleDateString()}</td>
+                              <td className="px-4 py-2 border whitespace-nowrap ">
                                 <ul>
                                   {record.attendance.map(att => (
                                     <li key={att.studentId._id}>
-                                      {att.name}
-                                      ({att.username}):
-                                      {att.present ? 'Present' : 'Absent'}
+                                      {att.name} ({att.username}): {att.present ? 'Present' : 'Absent'}
                                     </li>
                                   ))}
                                 </ul>
-                              </div>
-                            </div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
 
-                          </li>
-                        </div>
-
-                      ))}
                     </ul>
                   </>
                 )}

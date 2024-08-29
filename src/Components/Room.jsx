@@ -12,6 +12,7 @@ const Room = () => {
   const number = query.get('number');
 
   const role = localStorage.getItem("userRole");
+  const name = localStorage.getItem("loggedInUserName");
 
 
   // const roomID  = RoomCode
@@ -23,7 +24,7 @@ const Room = () => {
       serverSecret,
       roomID,
       Date.now().toString(),
-      "andrei"
+      name
     );
     const zp = ZegoUIKitPrebuilt.create(kitToken);
 
@@ -38,7 +39,7 @@ const Room = () => {
 
   return (
     <div className="flex bg-white">
-      <div ref={meeting} style={{ width: "80%", height: "100%" }}></div>
+      <div ref={meeting} className={` ${role === 'Student' ? 'w-[100%]' : 'w-[80%]'} h-full`} ></div>
       {
         role === 'Student' ? (
           <>

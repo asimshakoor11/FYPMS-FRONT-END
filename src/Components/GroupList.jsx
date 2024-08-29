@@ -6,6 +6,7 @@ import "./Styles/GroupList.css";
 function GroupList() {
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(true);
+  const Role = localStorage.getItem("userRole");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,7 +52,8 @@ function GroupList() {
 
   return (
     <div className="group-list-container">
-      <h2 className="group-list-header">Group List</h2>
+            <h3 className="font-bold text-3xl text-center">Groups List</h3>
+      
       {loading ? (
         <p>Loading groups...</p>
       ) : filteredGroups.length === 0 ? (

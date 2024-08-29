@@ -56,7 +56,7 @@ function SuperDashboard() {
                 </div>
                 <ul>
                     <li onClick={() => setSelectedComponent("Profile")}>Profile</li>
-                    <li onClick={() => setSelectedComponent("GroupList")}>Group List</li>
+                    <li onClick={() => setSelectedComponent("GroupList")}>Groups</li>
                     <li onClick={() => setSelectedComponent("NewsFeed")}>News Feed</li>
                     <Link to={'/'} style={{textDecoration: 'none', color: 'white'}} onClick={handleLogout}> <li>Logout</li></Link>
                 </ul>

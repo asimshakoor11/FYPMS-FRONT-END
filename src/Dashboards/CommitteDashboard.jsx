@@ -80,8 +80,8 @@ function CommitteDashboard() {
                     <li className={`${selectedComponent === 'SupervisorReg' ? 'bg-[#0056b3]' : 'bg-transparent'}`} onClick={() => setSelectedComponent("SupervisorReg")}>Supervisor Registration</li>
                     <li className={`${selectedComponent === 'StudentList' ? 'bg-[#0056b3]' : 'bg-transparent'}`} onClick={() => setSelectedComponent("StudentList")}>Student List</li>
                     <li className={`${selectedComponent === 'SupervisorList' ? 'bg-[#0056b3]' : 'bg-transparent'}`} onClick={() => setSelectedComponent("SupervisorList")}>Supervisor List</li>
-                    <li className={`${selectedComponent === 'GroupFormation' ? 'bg-[#0056b3]' : 'bg-transparent'}`} onClick={() => setSelectedComponent("GroupFormation")}>Group Formation</li>
-                    <li className={`${selectedComponent === 'GroupList' ? 'bg-[#0056b3]' : 'bg-transparent'}`} onClick={() => setSelectedComponent("GroupList")}>Group List</li>
+                    <li className={`${selectedComponent === 'GroupFormation' ? 'bg-[#0056b3]' : 'bg-transparent'}`} onClick={() => setSelectedComponent("GroupFormation")}>Groups Formation</li>
+                    <li className={`${selectedComponent === 'GroupList' ? 'bg-[#0056b3]' : 'bg-transparent'}`} onClick={() => setSelectedComponent("GroupList")}>Groups List</li>
                     <li className={`${selectedComponent === 'NewsFeed' ? 'bg-[#0056b3]' : 'bg-transparent'}`} onClick={() => setSelectedComponent("NewsFeed")}>News Feed</li>
                     <Link to={'/'} style={{ textDecoration: 'none', color: 'white' }} onClick={handleLogout}> <li className={`${selectedComponent === '' ? 'bg-[#0056b3]' : 'bg-transparent'}`}>Logout</li></Link>
                 </ul>

@@ -59,6 +59,7 @@ const GroupFormation = () => {
             const response = await axios.get('https://fypms-back-end.vercel.app/api/groups');
             const sortedGroups = response.data.sort((a, b) => a.number - b.number);
             setGroups(sortedGroups);
+            setGroupNumber(groups.length+1)
             setLoading(false);
 
         } catch (error) {
