@@ -66,8 +66,8 @@ function SupervisorReg() {
       <h1 className='font-bold text-3xl'>Register Student</h1>
 
       <div className="mt-10 flex flex-col">
-        <div className='flex gap-5'>
-          <div className='w-1/2'>
+        <div className='flex flex-col sm:flex-row gap-5'>
+          <div className='w-full sm:w-1/2'>
             <input
               type="text"
               placeholder="Name"
@@ -77,7 +77,7 @@ function SupervisorReg() {
               onChange={(e) => setName(e.target.value)}
             />
           </div>
-          <div className='w-1/2'>
+          <div className='w-full sm:w-1/2'>
 
             <input
               type="text"
@@ -96,13 +96,13 @@ function SupervisorReg() {
         </div>
       </div>
       <div className='mt-10'>
-        <h1 className='font-bold text-3xl'>Supervisor List</h1>
+        <h1 className='font-bold text-3xl'>Supervisors List</h1>
 
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <div>
-            <table className="w-full table-auto rounded mt-5">
+          <div className="overflow-x-scroll sm:overflow-auto">
+              <table className="w-max sm:w-full table-auto rounded mt-5">
               <thead>
                 <tr className="bg-gray-200">
                   <th className="px-4 py-2 text-left w-1/3">Name</th>

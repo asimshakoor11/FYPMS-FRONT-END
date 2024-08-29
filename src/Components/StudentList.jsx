@@ -44,8 +44,8 @@ function StudentList() {
         <p>Loading...</p>
       ) : (
         <div className='mt-10'>
-          <div>
-            <table className="w-full table-auto rounded mt-5">
+          <div className="overflow-x-scroll sm:overflow-auto">
+              <table className="w-max sm:w-full table-auto rounded mt-5">
               <thead>
                 <tr className="bg-gray-200">
                   <th className="px-4 py-2 text-left">Name</th>

@@ -74,8 +74,8 @@ function GroupList() {
             <p><strong>Project Title:</strong> {group.projectTitle}</p>
             <h3 className="font-semibold text-xl">Members</h3>
 
-            <div>
-              <table className="w-full table-auto rounded ">
+            <div className="overflow-x-scroll sm:overflow-auto">
+              <table className="w-max sm:w-full table-auto rounded ">
                 <thead>
                   <tr className="bg-gray-200">
                     <th className="px-4 py-2 text-left w-1/2">Name</th>

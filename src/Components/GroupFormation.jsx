@@ -59,7 +59,7 @@ const GroupFormation = () => {
             const response = await axios.get('https://fypms-back-end.vercel.app/api/groups');
             const sortedGroups = response.data.sort((a, b) => a.number - b.number);
             setGroups(sortedGroups);
-            setGroupNumber(groups.length+1)
+            setGroupNumber(groups.length + 1)
             setLoading(false);
 
         } catch (error) {
@@ -213,9 +213,9 @@ const GroupFormation = () => {
                         </option>
                     ))}
                 </select>
-                <div className="w-full flex gap-5 mt-5">
+                <div className="w-full flex flex-col sm:flex-row gap-5 mt-5">
                     <input
-                        className="w-1/2 p-3"
+                        className="w-full sm:w-1/2 p-3"
                         type="text"
                         placeholder="Group Number"
                         value={groupNumber}
@@ -223,7 +223,7 @@ const GroupFormation = () => {
                         required
                     />
                     <input
-                        className="w-1/2 p-3"
+                        className="w-full sm:w-1/2 p-3"
 
                         type="text"
                         placeholder="Project Title"
@@ -245,8 +245,8 @@ const GroupFormation = () => {
                         <p><strong>Supervisor:</strong> {group.supervisor.name} ({group.supervisor.username})</p>
                         <p><strong>Project Title:</strong> {group.projectTitle}</p>
                         <h3 className="font-semibold text-xl">Members</h3>
-                        <div>
-                            <table className="w-full table-auto rounded ">
+                        <div className="overflow-x-scroll sm:overflow-auto">
+                            <table className="w-max sm:w-full table-auto rounded ">
                                 <thead>
                                     <tr className="bg-gray-200">
                                         <th className="px-4 py-2 text-left w-1/3">Name</th>
@@ -271,7 +271,7 @@ const GroupFormation = () => {
                                     ))}
                                 </tbody>
                             </table>
-                            <div className="mt-4">
+                            <div className="mt-4 w-full">
                                 <button
                                     className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
                                     onClick={() => handleDeleteGroup(group._id)}

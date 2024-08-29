@@ -75,8 +75,8 @@ function StudentReg() {
     <div className="container">
       <h1 className='font-bold text-3xl'>Register Student</h1>
       <div className="mt-10 flex flex-col">
-        <div className='flex gap-5'>
-          <div className='w-1/2'>
+        <div className='flex flex-col sm:flex-row gap-5'>
+          <div className='w-full sm:w-1/2'>
             <input
               type="text"
               placeholder="Name"
@@ -85,7 +85,7 @@ function StudentReg() {
               onChange={(e) => setName(e.target.value)}
             />
           </div>
-          <div className='w-1/2'>
+          <div className='w-full sm:w-1/2'>
 
             <input
               type="text"
@@ -111,21 +111,21 @@ function StudentReg() {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <div>
-            <table className="w-full table-auto rounded mt-5">
+          <div className="overflow-x-scroll sm:overflow-auto">
+              <table className="w-max sm:w-full  table-auto rounded mt-5">
               <thead>
                 <tr className="bg-gray-200">
-                  <th className="px-4 py-2 text-left">Name</th>
-                  <th className="px-4 py-2 text-left">Roll No</th>
-                  <th className="px-4 py-2 text-left">Actions</th>
+                  <th className="min-w-max px-4 py-2 text-left">Name</th>
+                  <th className="min-w-max px-4 py-2 text-left">Roll No</th>
+                  <th className="min-w-max px-4 py-2 text-left">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {students.map((student, index) => (
                   <tr key={index} className="border-b">
-                    <td className="px-4 py-2">{student.name}</td>
-                    <td className="px-4 py-2">{student.username}</td>
-                    <td className="px-4 py-2">
+                    <td className="min-w-max px-4 py-2">{student.name}</td>
+                    <td className="min-w-max px-4 py-2">{student.username}</td>
+                    <td className="min-w-max px-4 py-2">
                       <button
                         className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-700"
                         onClick={() => handleDeleteStudent(student.username)}

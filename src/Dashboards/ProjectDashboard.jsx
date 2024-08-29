@@ -508,8 +508,9 @@ function ProjectDashboard() {
   return (
     <>
       <div className="fyp-dashboard" onClick={closeSidebar}>
-        <button className="hamburger" onClick={(e) => { e.stopPropagation(); setIsSidebarOpen(!isSidebarOpen); }}>
-          &#9776;
+        <button className="hamburger hover:bg-transparent" onClick={(e) => { e.stopPropagation(); setIsSidebarOpen(!isSidebarOpen); }}>
+          <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" height="25" x="0" y="0" viewBox="0 0 512 512" style={{ enableBackground: 'new 0 0 512 512' }}
+            xml:space="preserve"><g><path d="M480 224H32c-17.673 0-32 14.327-32 32s14.327 32 32 32h448c17.673 0 32-14.327 32-32s-14.327-32-32-32zM32 138.667h448c17.673 0 32-14.327 32-32s-14.327-32-32-32H32c-17.673 0-32 14.327-32 32s14.327 32 32 32zM480 373.333H32c-17.673 0-32 14.327-32 32s14.327 32 32 32h448c17.673 0 32-14.327 32-32s-14.327-32-32-32z" fill="#000000" opacity="1" data-original="#000000"></path></g></svg>
         </button>
         <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`} onClick={(e) => e.stopPropagation()}>
           <div>
@@ -527,17 +528,17 @@ function ProjectDashboard() {
               </>
             ) : role === 'Supervisor' ? (
               <>
-                <li onClick={() => setSelectedComponent("Dashboard")}>Dashboard</li>
-                <li onClick={() => setSelectedComponent("Update Marks")}>Update Marks</li>
-                <li onClick={() => setSelectedComponent("Update Phase")}>Update Phase</li>
-                <li onClick={() => setSelectedComponent("Update Attendance")}>Update Attendance</li>
-                <li onClick={() => setSelectedComponent("Attendance Records")}>Attendance Records</li>
-                <li onClick={() => setSelectedComponent("Schedule Meeting")}>Schedule Meeting</li>
-                <li onClick={() => setSelectedComponent("Meeting")}>Meeting</li>
-                <li onClick={() => setSelectedComponent("Meeting Records")}>Meeting Records</li>
-                <li onClick={() => setSelectedComponent("Update Tasks")}>Assing Tasks</li>
-                <li onClick={() => setSelectedComponent("View Submissions")}>View Submissions</li>
-                <li onClick={() => setSelectedComponent("Task History")}>Task History</li>
+                <li onClick={() => {setSelectedComponent("Dashboard"); setIsSidebarOpen(!isSidebarOpen);}}>Dashboard</li>
+                <li onClick={() => {setSelectedComponent("Update Marks"); setIsSidebarOpen(!isSidebarOpen);}}>Update Marks</li>
+                <li onClick={() => {setSelectedComponent("Update Phase"); setIsSidebarOpen(!isSidebarOpen);}}>Update Phase</li>
+                <li onClick={() => {setSelectedComponent("Update Attendance"); setIsSidebarOpen(!isSidebarOpen);}}>Update Attendance</li>
+                <li onClick={() => {setSelectedComponent("Attendance Records"); setIsSidebarOpen(!isSidebarOpen);}}>Attendance Records</li>
+                <li onClick={() => {setSelectedComponent("Schedule Meeting"); setIsSidebarOpen(!isSidebarOpen);}}>Schedule Meeting</li>
+                <li onClick={() => {setSelectedComponent("Meeting"); setIsSidebarOpen(!isSidebarOpen);}}>Meeting</li>
+                <li onClick={() => {setSelectedComponent("Meeting Records"); setIsSidebarOpen(!isSidebarOpen);}}>Meeting Records</li>
+                <li onClick={() => {setSelectedComponent("Update Tasks"); setIsSidebarOpen(!isSidebarOpen);}}>Assing Tasks</li>
+                <li onClick={() => {setSelectedComponent("View Submissions"); setIsSidebarOpen(!isSidebarOpen);}}>View Submissions</li>
+                <li onClick={() => {setSelectedComponent("Task History"); setIsSidebarOpen(!isSidebarOpen);}}>Task History</li>
                 <Link to={'/SuperDashboard'} style={{ textDecoration: 'none', color: 'white' }}><li>Go Back</li></Link>
               </>
             ) : role === 'Student' ? (
@@ -567,34 +568,53 @@ function ProjectDashboard() {
               ) : (
                 <div className="flex flex-col gap-5">
                   <h2 className="font-bold text-3xl underline text-center">Group {group.number}</h2>
-                  <p className="font-normal"><span className=" text-xl  font-semibold mr-16">Supervisor:</span> {group.supervisor.name}</p>
-                  <p className="font-normal"><span className=" text-xl  font-semibold mr-16">Project Title:</span> {group.projectTitle}</p>
-                  <p className="font-normal"><span className=" text-xl  font-semibold mr-12">Project Phase:</span> {group.phase || 'Not updated yet'}</p>
+                  <div className="overflow-x-scroll sm:overflow-auto">
+                    <table className="w-max sm:w-full">
+                      <tbody className="bg-white ">
+                        <tr>
+                          <td className=" py-2 whitespace-nowrap font-bold text-gray-900">Supervisor:</td>
+                          <td className="px-4 py-2 whitespace-nowrap text-gray-500">{group.supervisor.name}</td>
+                        </tr>
+                        <tr>
+                          <td className="py-2 whitespace-nowrap font-bold text-gray-900">Project Title:</td>
+                          <td className="px-4 py-2 whitespace-nowrap text-gray-500">{group.projectTitle}</td>
+                        </tr>
+                        <tr>
+                          <td className="py-2 whitespace-nowrap font-bold text-gray-900">Project Phase:</td>
+                          <td className="px-4 py-2 whitespace-nowrap text-gray-500">{group.phase || 'Not updated yet'}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
 
                   <h3 className="text-xl font-semibold">Members</h3>
-                  <table className="min-w-full bg-white">
-                    <thead>
-                      <tr className="bg-gray-200">
-                        <th className="py-2 px-4 border-b text-left border-gray-200">Name</th>
-                        <th className="py-2 px-4 border-b text-left border-gray-200">Roll No</th>
-                        <th className="py-2 px-4 border-b text-left border-gray-200">Total Marks</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {group.members.map((student) => {
-                        const memberMarks = group.marks.find(mark => mark.studentId._id === student._id);
+                  <div className="overflow-x-scroll sm:overflow-auto">
+                    <table className="w-max sm:w-full  bg-white">
+                      <thead>
+                        <tr className="bg-gray-200">
+                          <th className="py-2 px-4 border-b text-left border-gray-200">Name</th>
+                          <th className="py-2 px-4 border-b text-left border-gray-200">Roll No</th>
+                          <th className="py-2 px-4 border-b text-left border-gray-200">Total Marks</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {group.members.map((student) => {
+                          const memberMarks = group.marks.find(mark => mark.studentId._id === student._id);
 
-                        return (
-                          <tr key={student.username}>
-                            <td className="py-2 px-4 border-b border-gray-200">{student.name}</td>
-                            <td className="py-2 px-4 border-b border-gray-200">{student.username}</td>
-                            <td className="py-2 px-4 border-b ">{memberMarks ? calculateTotalMarks(memberMarks) : 0}</td>
+                          return (
+                            <tr key={student.username}>
+                              <td className="py-2 px-4 border-b border-gray-200">{student.name}</td>
+                              <td className="py-2 px-4 border-b border-gray-200">{student.username}</td>
+                              <td className="py-2 px-4 border-b ">{memberMarks ? calculateTotalMarks(memberMarks) : 0}</td>
 
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+
+                  </div>
 
                   {/* <p className="font-normal"><span className=" text-xl  font-semibold mr-8">Project Progress:</span>{group.progress ? `${group.progress}%` : 'Not updated yet'}</p> */}
                   <h2 className="text-xl font-semibold">Project Progress</h2>
@@ -659,37 +679,39 @@ function ProjectDashboard() {
 
                 <div className="mt-10 mx-auto">
                   <h2 className="text-3xl font-bold mb-4">Marks Table</h2>
-                  <table className="min-w-full bg-white border">
-                    <thead>
-                      <tr className="bg-gray-200">
-                        <th className="py-2 px-4 border-b">Sr. No</th>
-                        <th className="py-2 px-4 border-b">Name</th>
-                        <th className="py-2 px-4 border-b">Roll No</th>
-                        <th className="py-2 px-4 border-b">Proposal Marks</th>
-                        <th className="py-2 px-4 border-b">Mid Evaluation Marks</th>
-                        <th className="py-2 px-4 border-b">Internal Marks</th>
-                        <th className="py-2 px-4 border-b">External Marks</th>
-                        <th className="py-2 px-4 border-b">Total Marks</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {group.members.map((member, index) => {
-                        const memberMarks = group.marks.find(mark => mark.studentId._id === member._id);
-                        return (
-                          <tr key={member._id}>
-                            <td className="py-2 px-4 border-b text-center">{index + 1}</td>
-                            <td className="py-2 px-4 border-b text-center">{member.name}</td>
-                            <td className="py-2 px-4 border-b text-center">{member.username}</td>
-                            <td className="py-2 px-4 border-b text-center">{memberMarks ? memberMarks.proposalDefense : 0}</td>
-                            <td className="py-2 px-4 border-b text-center">{memberMarks ? memberMarks.midEvaluation : 0}</td>
-                            <td className="py-2 px-4 border-b text-center">{memberMarks ? memberMarks.internalEvaluation : 0}</td>
-                            <td className="py-2 px-4 border-b text-center">{memberMarks ? memberMarks.externalEvaluation : 0}</td>
-                            <td className="py-2 px-4 border-b text-center">{memberMarks ? calculateTotalMarks(memberMarks) : 0}</td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
+                  <div className="overflow-x-scroll sm:overflow-auto">
+                    <table className="w-max sm:w-full  bg-white border">
+                      <thead>
+                        <tr className="bg-gray-200">
+                          <th className="py-2 px-4 border-b">Sr. No</th>
+                          <th className="py-2 px-4 border-b">Name</th>
+                          <th className="py-2 px-4 border-b">Roll No</th>
+                          <th className="py-2 px-4 border-b">Proposal Marks</th>
+                          <th className="py-2 px-4 border-b">Mid Evaluation Marks</th>
+                          <th className="py-2 px-4 border-b">Internal Marks</th>
+                          <th className="py-2 px-4 border-b">External Marks</th>
+                          <th className="py-2 px-4 border-b">Total Marks</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {group.members.map((member, index) => {
+                          const memberMarks = group.marks.find(mark => mark.studentId._id === member._id);
+                          return (
+                            <tr key={member._id}>
+                              <td className="py-2 px-4 border-b text-center">{index + 1}</td>
+                              <td className="py-2 px-4 border-b text-center">{member.name}</td>
+                              <td className="py-2 px-4 border-b text-center">{member.username}</td>
+                              <td className="py-2 px-4 border-b text-center">{memberMarks ? memberMarks.proposalDefense : 0}</td>
+                              <td className="py-2 px-4 border-b text-center">{memberMarks ? memberMarks.midEvaluation : 0}</td>
+                              <td className="py-2 px-4 border-b text-center">{memberMarks ? memberMarks.internalEvaluation : 0}</td>
+                              <td className="py-2 px-4 border-b text-center">{memberMarks ? memberMarks.externalEvaluation : 0}</td>
+                              <td className="py-2 px-4 border-b text-center">{memberMarks ? calculateTotalMarks(memberMarks) : 0}</td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </>
@@ -742,37 +764,40 @@ function ProjectDashboard() {
 
             <div className="container mx-auto">
               <h2 className="text-2xl font-bold mb-4">Marks Table</h2>
-              <table className="min-w-full bg-white border">
-                <thead>
-                  <tr className="bg-gray-200">
-                    <th className="py-2 px-4 border-b">Sr. No</th>
-                    <th className="py-2 px-4 border-b">Name</th>
-                    <th className="py-2 px-4 border-b">Roll No</th>
-                    <th className="py-2 px-4 border-b">Proposal Marks</th>
-                    <th className="py-2 px-4 border-b">Mid Evaluation Marks</th>
-                    <th className="py-2 px-4 border-b">Internal Marks</th>
-                    <th className="py-2 px-4 border-b">External Marks</th>
-                    <th className="py-2 px-4 border-b">Total Marks</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {group.members.map((member, index) => {
-                    const memberMarks = group.marks.find(mark => mark.studentId._id === member._id);
-                    return (
-                      <tr key={member._id}>
-                        <td className="py-2 px-4 border-b text-center">{index + 1}</td>
-                        <td className="py-2 px-4 border-b text-center">{member.name}</td>
-                        <td className="py-2 px-4 border-b text-center">{member.username}</td>
-                        <td className="py-2 px-4 border-b text-center">{memberMarks ? memberMarks.proposalDefense : 0}</td>
-                        <td className="py-2 px-4 border-b text-center">{memberMarks ? memberMarks.midEvaluation : 0}</td>
-                        <td className="py-2 px-4 border-b text-center">{memberMarks ? memberMarks.internalEvaluation : 0}</td>
-                        <td className="py-2 px-4 border-b text-center">{memberMarks ? memberMarks.externalEvaluation : 0}</td>
-                        <td className="py-2 px-4 border-b text-center">{memberMarks ? calculateTotalMarks(memberMarks) : 0}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+              <div className="overflow-x-scroll sm:overflow-auto">
+                <table className="w-max sm:w-full  bg-white border">
+                  <thead>
+                    <tr className="bg-gray-200">
+                      <th className="py-2 px-4 border-b">Sr. No</th>
+                      <th className="py-2 px-4 border-b">Name</th>
+                      <th className="py-2 px-4 border-b">Roll No</th>
+                      <th className="py-2 px-4 border-b">Proposal Marks</th>
+                      <th className="py-2 px-4 border-b">Mid Evaluation Marks</th>
+                      <th className="py-2 px-4 border-b">Internal Marks</th>
+                      <th className="py-2 px-4 border-b">External Marks</th>
+                      <th className="py-2 px-4 border-b">Total Marks</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {group.members.map((member, index) => {
+                      const memberMarks = group.marks.find(mark => mark.studentId._id === member._id);
+                      return (
+                        <tr key={member._id}>
+                          <td className="py-2 px-4 border-b text-center">{index + 1}</td>
+                          <td className="py-2 px-4 border-b text-center">{member.name}</td>
+                          <td className="py-2 px-4 border-b text-center">{member.username}</td>
+                          <td className="py-2 px-4 border-b text-center">{memberMarks ? memberMarks.proposalDefense : 0}</td>
+                          <td className="py-2 px-4 border-b text-center">{memberMarks ? memberMarks.midEvaluation : 0}</td>
+                          <td className="py-2 px-4 border-b text-center">{memberMarks ? memberMarks.internalEvaluation : 0}</td>
+                          <td className="py-2 px-4 border-b text-center">{memberMarks ? memberMarks.externalEvaluation : 0}</td>
+                          <td className="py-2 px-4 border-b text-center">{memberMarks ? calculateTotalMarks(memberMarks) : 0}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+
+              </div>
             </div>
 
           )}
@@ -806,31 +831,33 @@ function ProjectDashboard() {
                       />
                     </label>
                     <div className="mt-5 ">
-                      <table className="w-full table-fixed">
-                        <thead>
-                          <tr className="bg-gray-200">
-                            <th className="w-1/3 p-2">Name</th>
-                            <th className="w-1/3 p-2">Roll No</th>
-                            <th className="w-1/3 p-2">Attendance</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {group.members.map(student => (
-                            <tr key={student._id} className="border-t">
-                              <td className="p-2">{student.name}</td>
-                              <td className="p-2">{student.username}</td>
-                              <td className="p-2 text-center">
-                                <input
-                                  type="checkbox"
-                                  checked={attendance.find(att => att.studentId === student._id)?.present || false}
-                                  onChange={() => handleCheckboxChange(student._id)}
-                                  className="mr-2"
-                                />
-                              </td>
+                      <div className="overflow-x-scroll sm:overflow-auto">
+                        <table className="w-max sm:w-full  table-fixed">
+                          <thead>
+                            <tr className="bg-gray-200">
+                              <th className="w-1/3 p-2">Name</th>
+                              <th className="w-1/3 p-2">Roll No</th>
+                              <th className="w-1/3 p-2">Attendance</th>
                             </tr>
-                          ))}
-                        </tbody>
-                      </table>
+                          </thead>
+                          <tbody>
+                            {group.members.map(student => (
+                              <tr key={student._id} className="border-t">
+                                <td className="p-2">{student.name}</td>
+                                <td className="p-2">{student.username}</td>
+                                <td className="p-2 text-center">
+                                  <input
+                                    type="checkbox"
+                                    checked={attendance.find(att => att.studentId === student._id)?.present || false}
+                                    onChange={() => handleCheckboxChange(student._id)}
+                                    className="mr-2"
+                                  />
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
 
                     <button type="submit" className="bg-primarycolor hover:bg-primarycolorhover p-3 text-white mt-4">
@@ -955,56 +982,60 @@ function ProjectDashboard() {
                     <h2 className="font-bold text-3xl">Attendance Records</h2>
                     <ul className="mt-10 mb-10">
                       <h2 className="font-bold text-2xl">Overall Attendance</h2>
-                      <table className="mt-4 w-full table-auto">
-                        <thead>
-                          <tr className="bg-gray-200">
-                            <th className="px-4 py-2 text-left">Name</th>
-                            <th className="px-4 py-2 text-left">Roll Number</th>
-                            <th className="px-4 py-2 text-left">Attendance (%)</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {overallAttendance.map(record => (
-                            <tr key={record.studentId} className="mb-4">
-                              <td className="border px-4 py-2">{record.name}</td>
-                              <td className="border px-4 py-2">{record.username}</td>
-                              <td className="border px-4 py-2">{record.attendancePercentage}%</td>
+                      <div className="overflow-x-scroll sm:overflow-auto">
+                        <table className="w-max sm:w-full mt-4 table-auto">
+                          <thead>
+                            <tr className="bg-gray-200">
+                              <th className="px-4 py-2 text-left">Name</th>
+                              <th className="px-4 py-2 text-left">Roll Number</th>
+                              <th className="px-4 py-2 text-left">Attendance (%)</th>
                             </tr>
-                          ))}
-                        </tbody>
-                      </table>
+                          </thead>
+                          <tbody>
+                            {overallAttendance.map(record => (
+                              <tr key={record.studentId} className="mb-4">
+                                <td className="border px-4 py-2">{record.name}</td>
+                                <td className="border px-4 py-2">{record.username}</td>
+                                <td className="border px-4 py-2">{record.attendancePercentage}%</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
 
 
                       <h2 className="font-bold text-2xl mt-10 mb-5">Meetings Summary</h2>
-
-                      <table className="min-w-full">
-                        <thead className="bg-gray-200">
-                          <tr>
-                            <th className="px-4 py-2 text-left ">No.</th>
-                            <th className="px-4 py-2 text-left ">Meeting Agenda</th>
-                            <th className="px-4 py-2 text-left ">Meeting Date</th>
-                            <th className="px-4 py-2 text-left ">Attendance</th>
-                          </tr>
-                        </thead>
-                        <tbody className="">
-                          {detailedRecords.map((record, index) => (
-                            <tr key={record._id}>
-                              <td className="px-4 py-2 border whitespace-nowrap font-medium text-gray-900">{index + 1}</td>
-                              <td className="px-4 py-2 border whitespace-nowrap ">{record.title}</td>
-                              <td className="px-4 py-2 border whitespace-nowrap ">{new Date(record.date).toLocaleDateString()}</td>
-                              <td className="px-4 py-2 border whitespace-nowrap ">
-                                <ul>
-                                  {record.attendance.map(att => (
-                                    <li key={att.studentId._id}>
-                                      {att.name} ({att.username}): {att.present ? 'Present' : 'Absent'}
-                                    </li>
-                                  ))}
-                                </ul>
-                              </td>
+                      <div className="overflow-x-scroll sm:overflow-auto">
+                        <table className="w-max sm:w-full ">
+                          <thead className="bg-gray-200">
+                            <tr>
+                              <th className="px-4 py-2 text-left ">No.</th>
+                              <th className="px-4 py-2 text-left ">Meeting Agenda</th>
+                              <th className="px-4 py-2 text-left ">Meeting Date</th>
+                              <th className="px-4 py-2 text-left ">Attendance</th>
                             </tr>
-                          ))}
-                        </tbody>
-                      </table>
+                          </thead>
+                          <tbody className="">
+                            {detailedRecords.map((record, index) => (
+                              <tr key={record._id}>
+                                <td className="px-4 py-2 border whitespace-nowrap font-medium text-gray-900">{index + 1}</td>
+                                <td className="px-4 py-2 border whitespace-nowrap ">{record.title}</td>
+                                <td className="px-4 py-2 border whitespace-nowrap ">{new Date(record.date).toLocaleDateString()}</td>
+                                <td className="px-4 py-2 border whitespace-nowrap ">
+                                  <ul>
+                                    {record.attendance.map(att => (
+                                      <li key={att.studentId._id}>
+                                        {att.name} ({att.username}): {att.present ? 'Present' : 'Absent'}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+
+                      </div>
 
                     </ul>
                   </>
@@ -1090,7 +1121,7 @@ function ProjectDashboard() {
                   {group.tasks && group.tasks.length > 0 ? (
 
                     <div className="overflow-x-auto mt-10">
-                      <table className="min-w-full bg-white">
+                      <table className="w-max sm:min-w-full bg-white">
                         <thead>
                           <tr className="bg-gray-200">
                             <th className="py-2 px-4 border-b text-nowrap w-1/6">Task Title</th>
@@ -1143,7 +1174,8 @@ function ProjectDashboard() {
               {group.submissions && group.submissions.length > 0 ? (
 
                 <div className="mt-10">
-                  <table className="min-w-full border-collapse border border-gray-200 mt-5">
+                  <div className="overflow-x-scroll sm:overflow-auto">
+                            <table className="w-max sm:w-full  border-collapse border border-gray-200 mt-5">
                     <thead>
                       <tr className="bg-gray-200">
                         <th className="px-4 py-2 text-left">Task Title</th>
@@ -1191,6 +1223,8 @@ function ProjectDashboard() {
                     </tbody>
 
                   </table>
+
+                  </div>
                 </div>
 
               ) : (
