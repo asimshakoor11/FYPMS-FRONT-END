@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useParams, useLocation } from 'react-router-dom';
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 import AudioRecorder from "./AudioRecorder";
@@ -13,6 +13,7 @@ const Room = () => {
   const name = localStorage.getItem("loggedInUserName");
 
   const meetingContainerRef = useRef(null); // Ref for the meeting container
+  const isMeetingInitialized = useRef(false); // Ref to track initialization
 
   useEffect(() => {
     const meeting = async () => {
@@ -35,7 +36,8 @@ const Room = () => {
       });
     };
 
-    if (meetingContainerRef.current) {
+    if (meetingContainerRef.current && !isMeetingInitialized.current) {
+      isMeetingInitialized.current = true; // Mark as initialized
       meeting();
     }
   }, [roomID, name]);
@@ -58,4 +60,3 @@ const Room = () => {
 };
 
 export default Room;
- 
