@@ -27,7 +27,16 @@ const Room = () => {
           Date.now().toString(),
           name
         );
+
         const zp = ZegoUIKitPrebuilt.create(kitToken);
+
+        // Prevent duplicate users from joining
+        const existingUsers = zp.getUserList();
+        if (existingUsers.find(user => user.userID === name)) {
+          console.log("User already in the room, not joining again.");
+          return;
+        }
+
         zp.joinRoom({
           container: meetingContainerRef.current,
           scenario: {
