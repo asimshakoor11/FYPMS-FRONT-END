@@ -1,10 +1,10 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useParams, useLocation } from 'react-router-dom';
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 import AudioRecorder from "./AudioRecorder";
 
 const Room = () => {
-  const { roomID } = useParams(); // Get RoomCode from URL path
+  const { roomID } = useParams();
   const query = new URLSearchParams(useLocation().search);
   const meetingAgenda = query.get('agenda');
   const number = query.get('number');
@@ -12,33 +12,32 @@ const Room = () => {
   const role = localStorage.getItem("userRole");
   const name = localStorage.getItem("loggedInUserName");
 
-  const meetingContainerRef = useRef(null); // Ref for the meeting container
-  const isMeetingInitialized = useRef(false); // Ref to track initialization
+  const meetingContainerRef = useRef(null);
+  const isMeetingInitialized = useRef(false);
 
   useEffect(() => {
-    const meeting = async () => {
-      const appID = 946219318;
-      const serverSecret = "8e0b853d79deae0bcbfe949b73ca46a4";
-      const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
-        appID,
-        serverSecret,
-        roomID,
-        Date.now().toString(),
-        name
-      );
-      const zp = ZegoUIKitPrebuilt.create(kitToken);
+    if (!isMeetingInitialized.current && meetingContainerRef.current) {
+      const initMeeting = async () => {
+        const appID = 946219318;
+        const serverSecret = "8e0b853d79deae0bcbfe949b73ca46a4";
+        const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
+          appID,
+          serverSecret,
+          roomID,
+          Date.now().toString(),
+          name
+        );
+        const zp = ZegoUIKitPrebuilt.create(kitToken);
+        zp.joinRoom({
+          container: meetingContainerRef.current,
+          scenario: {
+            mode: ZegoUIKitPrebuilt.GroupCall,
+          },
+        });
+      };
 
-      zp.joinRoom({
-        container: meetingContainerRef.current,
-        scenario: {
-          mode: ZegoUIKitPrebuilt.GroupCall,
-        },
-      });
-    };
-
-    if (meetingContainerRef.current && !isMeetingInitialized.current) {
+      initMeeting();
       isMeetingInitialized.current = true; // Mark as initialized
-      meeting();
     }
   }, [roomID, name]);
 
