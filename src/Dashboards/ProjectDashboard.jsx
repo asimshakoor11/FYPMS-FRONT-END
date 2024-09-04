@@ -432,13 +432,25 @@ function ProjectDashboard() {
   const handleRoomCode = () => {
     setFinalRoomCode(RoomCode);
     setIsRoomCodeVis(false);
-
+  
     // Construct the URL with query parameters
     const url = `/room/${RoomCode}?agenda=${encodeURIComponent(meetingAgenda)}&number=${encodeURIComponent(group.number)}`;
-
+  
     // Open the Room component in a new tab
-    window.open(url, '_blank');
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
+  
+
+  // const handleRoomCode = () => {
+  //   setFinalRoomCode(RoomCode);
+  //   setIsRoomCodeVis(false);
+
+  //   // Construct the URL with query parameters
+  //   const url = `/room/${RoomCode}?agenda=${encodeURIComponent(meetingAgenda)}&number=${encodeURIComponent(group.number)}`;
+
+  //   // Open the Room component in a new tab
+  //   window.open(url, '_blank');
+  // };
 
   const handleRoomCodeStudent = () => {
     setFinalRoomCode(RoomCode);
