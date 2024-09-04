@@ -451,17 +451,6 @@ function ProjectDashboard() {
   //   window.open(url, '_blank');
   // };
 
-  const handleRoomCodeStudent = () => {
-    setFinalRoomCode(RoomCode);
-    setIsRoomCodeVis(false);
-
-    // Construct the URL with query parameters
-    const url = `/room/${RoomCode}`;
-
-    // Open the Room component in a new tab
-    window.open(url, '_blank');
-  };
-
   const progress = group.progress || 0; // Assuming group.progress is a number between 0 and 100
 
   if (loading) return <div className="container"><p>Loading...</p></div>;
