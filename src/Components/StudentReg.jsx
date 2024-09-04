@@ -29,7 +29,7 @@ function StudentReg() {
 
       }
     } else {
-      setError('Please fill in all fields.');
+      toast.error('Please fill in all fields.');
     }
   };
 

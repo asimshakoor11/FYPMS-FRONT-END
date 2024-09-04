@@ -146,7 +146,6 @@ const GroupFormation = () => {
         }
     };
 
-
     const handleDeleteGroup = async (groupId) => {
         try {
             // await axios.delete(`http://localhost:5000/api/groups/${groupId}`);
@@ -183,9 +182,10 @@ const GroupFormation = () => {
             <h3 className="font-bold text-3xl text-center">Add Students to Group</h3>
             <div className="mt-10">
 
-                <label htmlFor="multiselect" className="font-semibold">Select Students</label>
+                <label htmlFor="Select Students" className="font-semibold">Select Students</label>
                 <select
                     multiple
+                    id="Select Students"
                     className="custom-select mb-5 mt-2"
                     value={selectedStudents}
                     onChange={(e) => setSelectedStudents(Array.from(e.target.selectedOptions, option => option.value))}
@@ -200,6 +200,7 @@ const GroupFormation = () => {
                 <label htmlFor="selectsupervisor" className="font-semibold">Select Supervisor</label>
 
                 <select
+                    id="selectsupervisor"
                     value={selectedSupervisor}
                     onChange={(e) => setSelectedSupervisor(e.target.value)}
                     className="w-full mt-2 border-2 border-gray-300 p-3 rounded "
@@ -213,24 +214,34 @@ const GroupFormation = () => {
                         </option>
                     ))}
                 </select>
-                <div className="w-full flex flex-col sm:flex-row gap-5 mt-5">
-                    <input
-                        className="w-full sm:w-1/2 p-3"
-                        type="text"
-                        placeholder="Group Number"
-                        value={groupNumber}
-                        onChange={handleGroupNumberChange}
-                        required
-                    />
-                    <input
-                        className="w-full sm:w-1/2 p-3"
 
-                        type="text"
-                        placeholder="Project Title"
-                        value={projectTitle}
-                        onChange={(e) => setProjectTitle(e.target.value)}
-                        required
-                    />
+                <div className="w-full flex flex-col sm:flex-row gap-5 mt-5">
+                    <div className="w-full sm:w-1/2">
+                        <label htmlFor="Group Number" className="font-semibold">Group Number</label>
+
+                        <input
+                            className="w-full p-3"
+                            type="text"
+                            placeholder="Group Number"
+                            value={groupNumber}
+                            onChange={handleGroupNumberChange}
+                            required
+                        />
+                    </div>
+
+                    <div className="w-full sm:w-1/2">
+                        <label htmlFor="Project Title" className="font-semibold">Project Title</label>
+
+                        <input
+                            className="w-full p-3"
+                            type="text"
+                            placeholder="Project Title"
+                            value={projectTitle}
+                            onChange={(e) => setProjectTitle(e.target.value)}
+                            required
+                        />
+                    </div>
+
                 </div>
 
                 <button onClick={handleAddToGroup} className="p-3 bg-[#007bff] hover:bg-[#0056b3] text-white mt-5">Add to Group</button>

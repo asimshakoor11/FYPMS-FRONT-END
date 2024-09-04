@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-// import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
 const ScheduleMeeting = ({ groupnumber }) => {
   const [topic, setTopic] = useState('');
@@ -32,7 +31,6 @@ const ScheduleMeeting = ({ groupnumber }) => {
       console.log(result)
       fetchMeetingDetails(groupnumber);
 
-      // setMeetingDetails(result);
       toast.success('Meeting scheduled successfully!')
       setMessage('Meeting scheduled successfully!');
     } catch (error) {
@@ -40,36 +38,8 @@ const ScheduleMeeting = ({ groupnumber }) => {
       toast.success('Error: ' + error.message)
       fetchMeetingDetails(null);
 
-      // setMeetingDetails(null);
     }
   };
-
-  // const { transcript, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
-  // const [isListening, setIsListening] = useState(false);
-
-  // const startListening = () => {
-  //   SpeechRecognition.startListening({ continuous: true });
-  //   setIsListening(true);
-  // };
-
-  // const stopListening = () => {
-  //   SpeechRecognition.stopListening();
-  //   setIsListening(false);
-  // };
-
-  // const handleTranscript = () => {
-  //   if (transcript) {
-  //     toast.success('Transcript updated!');
-  //   }
-  // };
-
-  // React.useEffect(() => {
-  //   handleTranscript();
-  // }, [transcript]);
-
-  // if (!browserSupportsSpeechRecognition) {
-  //   return <p>Your browser does not support speech recognition.</p>;
-  // }
 
   const fetchMeetingDetails = async (id) => {
     try {
@@ -107,7 +77,7 @@ const ScheduleMeeting = ({ groupnumber }) => {
         <button type="submit" className="bg-primarycolor hover:bg-primarycolorhover p-3 text-white">Schedule Meeting</button>
       </form>
       {message && <p>{message}</p>}
-      {meetingDetails  && meetingDetails.meetings ? (
+      {meetingDetails && meetingDetails.meetings ? (
         meetingDetails.meetings.length > 0 ? (
           <div className='flex flex-col gap-2 mt-10'>
             <h2 className='font-bold text-3xl'>Meeting Details</h2>
@@ -129,34 +99,6 @@ const ScheduleMeeting = ({ groupnumber }) => {
       ) : (
         <p> No meetings available for this group</p>
       )}
-
-      {/* <div className="p-4">
-        <h1 className="font-bold text-3xl">Real-Time Speech Recognition</h1>
-        <div className="mt-4">
-          <button
-            onClick={startListening}
-            className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded"
-          >
-            Start Listening
-          </button>
-          <button
-            onClick={stopListening}
-            className="bg-red-500 hover:bg-red-600 text-white p-2 rounded ml-2"
-          >
-            Stop Listening
-          </button>
-          <button
-            onClick={resetTranscript}
-            className="bg-gray-500 hover:bg-gray-600 text-white p-2 rounded ml-2"
-          >
-            Reset
-          </button>
-        </div>
-        <div className="mt-4">
-          <h2 className="font-bold text-2xl">Transcript:</h2>
-          <p className="border p-2 mt-2">{transcript}</p>
-        </div>
-      </div> */}
       <Toaster />
     </div>
   );

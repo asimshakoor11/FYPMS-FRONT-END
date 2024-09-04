@@ -124,24 +124,22 @@ function LoginForm() {
     <div className="flex justify-center items-center min-h-screen" style={{ backgroundImage: 'url(/images/background.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
       <form className="bg-white p-6 rounded shadow-md w-80">
         <h1 className="text-2xl font-bold mb-4 text-center">FYP Management System</h1>
-        <label className="block mb-2">Username:</label>
+        <label htmlFor="username" className="block mb-2">Username:</label>
         <input
           type="text"
+          id="username"
+          name="username"
           value={username}
           onChange={handleUsernameChange}
           className="w-full p-2 mb-4 border rounded"
         />
-        <label className="block mb-2">Password:</label>
-        {/* <input
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-          className="w-full p-2 mb-4 border rounded"
-        /> */}
+        <label htmlFor="password" className="block mb-2">Password:</label>
         <div className="relative w-full ">
           <input
             type={showPassword ? "text" : "password"} // Toggle input type based on state
             value={password}
+            id="password"
+            name="password"
             onChange={handlePasswordChange}
             className="w-full p-2 mb-4 border rounded"
           />
@@ -202,8 +200,10 @@ function LoginForm() {
 
           </button>
         </div>
-        <label className="block mb-2">Select Role:</label>
+        <label htmlFor="role" className="block mb-2">Select Role:</label>
         <select
+          id="role"
+          name="role"
           value={role}
           onChange={handleRoleChange}
           className="w-full p-2 mb-4 border rounded"

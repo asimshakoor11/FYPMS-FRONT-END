@@ -78,7 +78,7 @@ const AudioRecorder = ({ meetingAgenda, number }) => {
             {transcription && (
 
                 <div className="mt-4 bg-white text-black p-4 rounded shadow-lg">
-                    <h2 className="text-xl font-bold mb-2">Transcription</h2>
+                    <h2 className="text-xl font-bold mb-2">Meeting Transcription</h2>
 
                     <p>{transcription}</p>
 
@@ -87,7 +87,7 @@ const AudioRecorder = ({ meetingAgenda, number }) => {
             {summary && (
 
                 <div className="mt-4 bg-white text-black p-4 rounded shadow-lg">
-                    <h2 className="text-xl font-bold mb-2">Summary</h2>
+                    <h2 className="text-xl font-bold mb-2">Meeting Summary</h2>
 
                     <ul>
                         {summary.split('\n').map((item, index) => (

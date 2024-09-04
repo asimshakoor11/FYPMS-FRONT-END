@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "./Styles/CommitteDashboard.css";
 import axios from "axios";
 import toast, { Toaster } from 'react-hot-toast';
@@ -29,15 +29,10 @@ ChartJS.register(
   Legend
 );
 
-
-
 function ProjectDashboard() {
 
   const [selectedComponent, setSelectedComponent] = useState("Dashboard");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-
-  const location = useLocation();
   const { groupId } = useParams();
   const [role, setRole] = useState('');
   const [group, setGroup] = useState([]);
@@ -148,7 +143,6 @@ function ProjectDashboard() {
     }
   }, []);
 
-  const [showTaskHistory, setShowTaskHistory] = useState(false); // State to control Task History visibility
 
   const closeSidebar = () => {
     if (isSidebarOpen) {
@@ -200,6 +194,9 @@ function ProjectDashboard() {
         marks: updatedMarks,
         phase: selectedPhase,
       });
+
+      console.log(updatedMarks)
+      console.log(updatedMarks)
       toast.success("Marks updated successfully");
       fetchGroupByNumber();
     } catch (err) {
@@ -207,46 +204,9 @@ function ProjectDashboard() {
     }
   };
 
-  // const handleSubmitMarks = async (event) => {
-  //   event.preventDefault();
-  //   const updatedMarks = Object.entries(studentMarks).map(([studentId, marks]) => ({
-  //     studentId,
-  //     marks: parseInt(marks, 10),
-  //   }));
-
-  //   try {
-  //     await axios.put(`https://fypms-back-end.vercel.app/api/groups/${groupId}/marks`, {
-  //       marks: updatedMarks,
-  //       phase: selectedPhase,
-  //     });
-  //     toast.success("Marks updated successfully");
-  //     fetchGroupByNumber();
-  //   } catch (err) {
-  //     toast.error("An error occurred while updating marks");
-  //   }
-  // };
-
-
   const calculateTotalMarks = (marks) => {
     return marks.proposalDefense + marks.midEvaluation + marks.internalEvaluation + marks.externalEvaluation;
   };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   const formData = new FormData(e.target);
-  //   const updatedMarks = Array.from(formData.entries()).map(([username, value]) => {
-  //     const member = group.members.find(member => member.username === username);
-  //     if (member) {
-  //       return {
-  //         studentId: member._id,
-  //         marks: parseInt(value, 10)
-  //       };
-  //     }
-  //     return null;
-  //   }).filter(mark => mark !== null);
-
-  //   handleUpdateMarks(updatedMarks);
-  // };
 
   const handleUpdatePhase = async (phase) => {
     const progressPercentage = calculateProgressPercentage(phase);
@@ -260,7 +220,6 @@ function ProjectDashboard() {
       toast.error('An error occurred while updating the phase');
     }
   };
-
 
   const calculateProgressPercentage = (phase) => {
     switch (phase) {
@@ -316,7 +275,6 @@ function ProjectDashboard() {
       const formData = new FormData();
       formData.append('taskId', taskId);
       formData.append('file', file);
-
       // const response = await axios.post(`http://localhost:5000/api/groups/${groupId}/tasks/submit`, formData, {
       const response = await axios.post(`https://fypms-back-end.vercel.app/api/groups/${groupId}/tasks/submit`, formData, {
         headers: {
@@ -351,7 +309,6 @@ function ProjectDashboard() {
     }
   };
 
-
   const getPendingTasks = () => {
     const submittedTaskIds = (group.submissions || []).map(sub => sub.taskId);
     const now = new Date();
@@ -360,7 +317,6 @@ function ProjectDashboard() {
       return !submittedTaskIds.includes(task._id) && deadline > now;
     });
   };
-
 
   const getTaskStatus = (taskId) => {
     const submittedTaskIds = (group.submissions || []).map(sub => sub.taskId.toString());
@@ -436,7 +392,6 @@ function ProjectDashboard() {
     return '#B71C1C'; // F: Deep Red
   };
 
-
   const data = {
     labels: overallAttendance.map(record => record.username),
     datasets: [
@@ -473,7 +428,6 @@ function ProjectDashboard() {
       fontSize: '16px',
     },
   };
-
 
   const handleRoomCode = () => {
     setFinalRoomCode(RoomCode);
@@ -528,17 +482,17 @@ function ProjectDashboard() {
               </>
             ) : role === 'Supervisor' ? (
               <>
-                <li onClick={() => {setSelectedComponent("Dashboard"); setIsSidebarOpen(!isSidebarOpen);}}>Dashboard</li>
-                <li onClick={() => {setSelectedComponent("Update Marks"); setIsSidebarOpen(!isSidebarOpen);}}>Update Marks</li>
-                <li onClick={() => {setSelectedComponent("Update Phase"); setIsSidebarOpen(!isSidebarOpen);}}>Update Phase</li>
-                <li onClick={() => {setSelectedComponent("Update Attendance"); setIsSidebarOpen(!isSidebarOpen);}}>Update Attendance</li>
-                <li onClick={() => {setSelectedComponent("Attendance Records"); setIsSidebarOpen(!isSidebarOpen);}}>Attendance Records</li>
-                <li onClick={() => {setSelectedComponent("Schedule Meeting"); setIsSidebarOpen(!isSidebarOpen);}}>Schedule Meeting</li>
-                <li onClick={() => {setSelectedComponent("Meeting"); setIsSidebarOpen(!isSidebarOpen);}}>Meeting</li>
-                <li onClick={() => {setSelectedComponent("Meeting Records"); setIsSidebarOpen(!isSidebarOpen);}}>Meeting Records</li>
-                <li onClick={() => {setSelectedComponent("Update Tasks"); setIsSidebarOpen(!isSidebarOpen);}}>Assing Tasks</li>
-                <li onClick={() => {setSelectedComponent("View Submissions"); setIsSidebarOpen(!isSidebarOpen);}}>View Submissions</li>
-                <li onClick={() => {setSelectedComponent("Task History"); setIsSidebarOpen(!isSidebarOpen);}}>Task History</li>
+                <li onClick={() => { setSelectedComponent("Dashboard"); setIsSidebarOpen(!isSidebarOpen); }}>Dashboard</li>
+                <li onClick={() => { setSelectedComponent("Update Marks"); setIsSidebarOpen(!isSidebarOpen); }}>Update Marks</li>
+                <li onClick={() => { setSelectedComponent("Update Phase"); setIsSidebarOpen(!isSidebarOpen); }}>Update Phase</li>
+                <li onClick={() => { setSelectedComponent("Update Attendance"); setIsSidebarOpen(!isSidebarOpen); }}>Update Attendance</li>
+                <li onClick={() => { setSelectedComponent("Attendance Records"); setIsSidebarOpen(!isSidebarOpen); }}>Attendance Records</li>
+                <li onClick={() => { setSelectedComponent("Schedule Meeting"); setIsSidebarOpen(!isSidebarOpen); }}>Schedule Meeting</li>
+                <li onClick={() => { setSelectedComponent("Meeting"); setIsSidebarOpen(!isSidebarOpen); }}>Meeting</li>
+                <li onClick={() => { setSelectedComponent("Meeting Records"); setIsSidebarOpen(!isSidebarOpen); }}>Meeting Records</li>
+                <li onClick={() => { setSelectedComponent("Update Tasks"); setIsSidebarOpen(!isSidebarOpen); }}>Assing Tasks</li>
+                <li onClick={() => { setSelectedComponent("View Submissions"); setIsSidebarOpen(!isSidebarOpen); }}>View Submissions</li>
+                <li onClick={() => { setSelectedComponent("Task History"); setIsSidebarOpen(!isSidebarOpen); }}>Task History</li>
                 <Link to={'/SuperDashboard'} style={{ textDecoration: 'none', color: 'white' }}><li>Go Back</li></Link>
               </>
             ) : role === 'Student' ? (
@@ -635,7 +589,6 @@ function ProjectDashboard() {
             </div>
           )}
           {selectedComponent === 'Update Marks' && (
-
             <>
               <div className="container">
                 {loading ? (
@@ -922,8 +875,6 @@ function ProjectDashboard() {
                       )
                     }
 
-
-
                     <button
                       type="submit"
                       className=" bg-blue-500 hover:bg-blue-400 duration-100 text-white ease-out font-bold w-[5rem] md:w-[7rem] rounded-full py-[5px] md:py-[7px] mt-2 md:mt-4 "
@@ -1175,54 +1126,54 @@ function ProjectDashboard() {
 
                 <div className="mt-10">
                   <div className="overflow-x-scroll sm:overflow-auto">
-                            <table className="w-max sm:w-full  border-collapse border border-gray-200 mt-5">
-                    <thead>
-                      <tr className="bg-gray-200">
-                        <th className="px-4 py-2 text-left">Task Title</th>
-                        <th className="px-4 py-2 text-left">Submitted</th>
-                        <th className="px-4 py-2 text-left">File</th>
-                      </tr>
-                    </thead>
+                    <table className="w-max sm:w-full  border-collapse border border-gray-200 mt-5">
+                      <thead>
+                        <tr className="bg-gray-200">
+                          <th className="px-4 py-2 text-left">Task Title</th>
+                          <th className="px-4 py-2 text-left">Submitted</th>
+                          <th className="px-4 py-2 text-left">File</th>
+                        </tr>
+                      </thead>
 
-                    <tbody>
-                      {group.submissions.map((submission, index) => {
-                        // Find the task in the group’s tasks array
-                        const task = group.tasks.find(task => task._id.toString() === submission.taskId.toString());
+                      <tbody>
+                        {group.submissions.map((submission, index) => {
+                          // Find the task in the group’s tasks array
+                          const task = group.tasks.find(task => task._id.toString() === submission.taskId.toString());
 
-                        return (
-                          <tr key={index} className="border-b">
-                            <td className="px-4 py-4">
-                              {task ? task.title : 'Unknown Task'}
-                            </td>
-                            <td className="px-4 py-4">
-                              {new Date(submission.timestamp).toLocaleDateString('en-US', {
-                                day: 'numeric',
-                                month: 'short',
-                                year: 'numeric',
-                              })}
-                            </td>
-                            <td className="px-4 py-4">
-                              {submission.filePath ? (
-                                <a
-                                  // href={`http://localhost:5000/${submission.filePath}`}
-                                  href={`${submission.filePath}`}
-                                  className="bg-primarycolor hover:bg-primarycolorhover p-2 text-white rounded"
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  download
-                                >
-                                  Download File
-                                </a>
-                              ) : (
-                                'No File'
-                              )}
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
+                          return (
+                            <tr key={index} className="border-b">
+                              <td className="px-4 py-4">
+                                {task ? task.title : 'Unknown Task'}
+                              </td>
+                              <td className="px-4 py-4">
+                                {new Date(submission.timestamp).toLocaleDateString('en-US', {
+                                  day: 'numeric',
+                                  month: 'short',
+                                  year: 'numeric',
+                                })}
+                              </td>
+                              <td className="px-4 py-4">
+                                {submission.filePath ? (
+                                  <a
+                                    // href={`http://localhost:5000/${submission.filePath}`}
+                                    href={`${submission.filePath}`}
+                                    className="bg-primarycolor hover:bg-primarycolorhover p-2 text-white rounded"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    download
+                                  >
+                                    Download File
+                                  </a>
+                                ) : (
+                                  'No File'
+                                )}
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
 
-                  </table>
+                    </table>
 
                   </div>
                 </div>

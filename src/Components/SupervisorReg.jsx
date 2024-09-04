@@ -9,7 +9,6 @@ function SupervisorReg() {
   const [supervisors, setSupervisors] = useState([]);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     fetchSupervisors();
   }, []);
@@ -47,6 +46,8 @@ function SupervisorReg() {
 
         // Handle registration error (e.g., display error message)
       }
+    } else {
+      toast.error('Please fill in all fields.');
     }
   };
 
@@ -63,7 +64,7 @@ function SupervisorReg() {
 
   return (
     <div className="container">
-      <h1 className='font-bold text-3xl'>Register Student</h1>
+      <h1 className='font-bold text-3xl'>Register Supervisor</h1>
 
       <div className="mt-10 flex flex-col">
         <div className='flex flex-col sm:flex-row gap-5'>
@@ -102,7 +103,7 @@ function SupervisorReg() {
           <p>Loading...</p>
         ) : (
           <div className="overflow-x-scroll sm:overflow-auto">
-              <table className="w-max sm:w-full table-auto rounded mt-5">
+            <table className="w-max sm:w-full table-auto rounded mt-5">
               <thead>
                 <tr className="bg-gray-200">
                   <th className="px-4 py-2 text-left w-1/3">Name</th>

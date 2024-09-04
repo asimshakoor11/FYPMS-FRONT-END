@@ -187,16 +187,16 @@ function Profile() {
           {isEditing ? (
             <>
               <div className="grid gap-4 mb-4 text-base">
-                <label className="font-semibold">Name:</label>
-                <input type="text" name="name" value={user.name} onChange={handleInputChange} className="border rounded-lg p-2" />
-                <label className="font-semibold">Address:</label>
-                <input type="text" name="address" value={user.address} onChange={handleInputChange} className="border rounded-lg p-2" />
-                <label className="font-semibold">Email:</label>
-                <input type="email" name="email" value={user.email} onChange={handleInputChange} className="border rounded-lg p-2" />
-                <label className="font-semibold">Phone Number:</label>
-                <input type="tel" name="phone" value={user.phone} onChange={handleInputChange} className="border rounded-lg p-2" />
-                <label className="font-semibold">Photo:</label>
-                <input type="file" name="photo" onChange={handlePhotoChange} className="border rounded-lg p-2" />
+                <label htmlFor="name" className="font-semibold">Name:</label>
+                <input id="name" type="text" name="name" value={user.name} onChange={handleInputChange} className="border rounded-lg p-2" />
+                <label htmlFor="address" className="font-semibold">Address:</label>
+                <input id="address" type="text" name="address" value={user.address} onChange={handleInputChange} className="border rounded-lg p-2" />
+                <label htmlFor="email" className="font-semibold">Email:</label>
+                <input id="email" type="email" name="email" value={user.email} onChange={handleInputChange} className="border rounded-lg p-2" />
+                <label htmlFor="phonenumber" className="font-semibold">Phone Number:</label>
+                <input id="phonenumber" type="tel" name="phone" value={user.phone} onChange={handleInputChange} className="border rounded-lg p-2" />
+                <label htmlFor="photo" className="font-semibold">Photo:</label>
+                <input id="photo" type="file" name="photo" onChange={handlePhotoChange} className="border rounded-lg p-2" />
               </div>
               <button onClick={handleSave} className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700">
                 Save Profile
@@ -232,9 +232,9 @@ function Profile() {
           {isEditPassword ? (
             <>
               <div className="grid gap-4 mb-4">
-                <label className="font-semibold">Old Password:</label>
+                <label htmlFor="OldPassword" className="font-semibold">Old Password:</label>
                 <div className="relative w-full">
-                  <input type={showPassword ? "text" : "password"} name="oldPassword" value={oldPassword} onChange={handleOldPasswordChange} className="border rounded-lg p-2" />
+                  <input type={showPassword ? "text" : "password"} id="OldPassword" name="OldPassword" value={oldPassword} onChange={handleOldPasswordChange} className="border rounded-lg p-2" />
                   <button
                     type="button"
                     onClick={togglePasswordVisibility}
@@ -292,9 +292,9 @@ function Profile() {
 
                   </button>
                 </div>
-                <label className="font-semibold">New Password:</label>
+                <label  htmlFor="New Password" className="font-semibold">New Password:</label>
                 <div className="relative w-full">
-                  <input type={showPassword2 ? "text" : "password"} name="newPassword" value={newPassword} onChange={handleNewPasswordChange} className="border rounded-lg p-2" />
+                  <input type={showPassword2 ? "text" : "password"} id="New Password" name="New Password" value={newPassword} onChange={handleNewPasswordChange} className="border rounded-lg p-2" />
                   <button
                     type="button"
                     onClick={togglePasswordVisibility2}
