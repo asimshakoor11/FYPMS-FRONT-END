@@ -7,6 +7,7 @@ import StudentDashboard from "./Dashboards/StudentDashboard";
 import ProjectDashboard from "./Dashboards/ProjectDashboard";
 import ScheduleMeeting from "./Components/ScheduleMeeting";
 import Room from "./Components/Room";
+import Room2 from "./Components/Room2";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
           <Route exact path="/SuperDashboard" element={<SuperDashboard />}></Route>
           <Route exact path="/CommitteeDashboard" element={<CommitteDashboard />}></Route>
           <Route exact path="/projectdashboard/:groupId" element={<ProjectDashboard />}></Route>
-          <Route path="/room/:roomID" element={<Room />} />
+          <Route path="/room/:roomID" element={<Room2 />} />
         </Routes>
       </Router>
     </>
