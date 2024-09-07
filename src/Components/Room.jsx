@@ -30,6 +30,16 @@ const Room = () => {
         const zp = ZegoUIKitPrebuilt.create(kitToken);
         zp.joinRoom({
           container: meetingContainerRef.current,
+          // sharedLinks: [
+          //   {
+          //     name: 'Copy link',
+          //     url:
+          //       window.location.protocol + '//' +
+          //       window.location.host + window.location.pathname +
+          //       '?roomID=' +
+          //       roomID,
+          //   },
+          // ],
           scenario: {
             mode: ZegoUIKitPrebuilt.GroupCall,
           },

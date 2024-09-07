@@ -18,7 +18,7 @@ function App() {
           <Route exact path="/SuperDashboard" element={<SuperDashboard />}></Route>
           <Route exact path="/CommitteeDashboard" element={<CommitteDashboard />}></Route>
           <Route exact path="/projectdashboard/:groupId" element={<ProjectDashboard />}></Route>
-          <Route path="/room/:ID" element={<Room2 />} />
+          <Route path="/room/:roomID" element={<Room/>} />
         </Routes>
       </Router>
     </>

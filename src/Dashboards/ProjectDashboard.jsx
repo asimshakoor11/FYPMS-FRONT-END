@@ -434,8 +434,8 @@ function ProjectDashboard() {
     setIsRoomCodeVis(false);
   
     // Construct the URL with query parameters
-    // const url = `/room/${RoomCode}?agenda=${encodeURIComponent(meetingAgenda)}&number=${encodeURIComponent(group.number)}`;
-    const url = `/room/${RoomCode}`;
+    const url = `/room/${RoomCode}?agenda=${encodeURIComponent(meetingAgenda)}&number=${encodeURIComponent(group.number)}`;
+    // const url = `/room/${RoomCode}`;
   
     // Open the Room component in a new tab
     window.open(url, '_blank', 'noopener,noreferrer');
