@@ -60,7 +60,11 @@ const PastProjectsRecords = () => {
   }, {});
 
   if (loading) {
+
     return <div>Loading...</div>;
+  }
+  if (!loading) {
+    console.log(pastGroups)
   }
 
 
@@ -73,8 +77,8 @@ const PastProjectsRecords = () => {
         Object.keys(groupedByYear).sort((a, b) => b - a).map((year) => (
           <div key={year} className="mb-10">
             <h3 className="text-4xl font-semibold font-BebasNeueSemiExpBold underline text-blue-600 mb-4">{year - 4} - {year}</h3>
-            <div className="overflow-x-auto">
-              <table className="table-auto w-full bg-white shadow-lg rounded-lg">
+            <div className="overflow-x-scroll sm:overflow-auto">
+            <table className="w-max sm:w-full table-auto rounded ">
                 <thead>
                   <tr className="bg-gray-200 text-gray-700">
                     <th className="px-4 py-2">Project Title</th>
@@ -86,9 +90,9 @@ const PastProjectsRecords = () => {
                 <tbody>
                   {groupedByYear[year].map((group) => (
                     <tr key={group._id} className="border-b">
-                      <td className="px-4 py-2 text-center font-medium">{group.projectTitle}</td>
-                      <td className="px-4 py-2 text-center">{group.supervisor.name}</td>
-                      <td className="px-4 py-2 text-center">
+                      <td className="px-4 py-2 text-left font-medium">{group.projectTitle}</td>
+                      <td className="px-4 py-2 text-left">{group.supervisor.name}</td>
+                      <td className="px-4 py-2 text-left">
                         <ul>
                           {group.members.map((member) => (
                             <li key={member._id} className="">
@@ -98,7 +102,7 @@ const PastProjectsRecords = () => {
                           ))}
                         </ul>
                       </td>
-                      <td className="px-4 py-2 text-center">
+                      <td className="px-4 py-2 text-left">
                         <button
                           onClick={() => handleDeleteGroup(group._id)}
                           className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-700"
