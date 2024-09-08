@@ -38,7 +38,7 @@ function StudentList() {
 
   return (
     <div className="student-list">
-      <h1 className='font-bold text-3xl'>Registered Students</h1>
+      <h1 className="text-left text-3xl md:text-[40px] font-BebasNeueSemiExpBold mb-6">Registered Students</h1>
 
       {loading ? (
         <p>Loading...</p>

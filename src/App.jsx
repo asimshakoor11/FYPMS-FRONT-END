@@ -6,7 +6,6 @@ import SuperDashboard from "./Dashboards/SuperDashboard";
 import StudentDashboard from "./Dashboards/StudentDashboard";
 import ProjectDashboard from "./Dashboards/ProjectDashboard";
 import Room from "./Components/Room";
-import Room2 from "./Components/Room2";
 
 function App() {
   return (

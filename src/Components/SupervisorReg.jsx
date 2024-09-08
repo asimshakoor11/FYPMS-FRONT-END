@@ -64,7 +64,7 @@ function SupervisorReg() {
 
   return (
     <div className="container">
-      <h1 className='font-bold text-3xl'>Register Supervisor</h1>
+      <h1 className="text-left text-3xl md:text-[40px] font-BebasNeueSemiExpBold mb-6">Register Supervisor</h1>
 
       <div className="mt-10 flex flex-col">
         <div className='flex flex-col sm:flex-row gap-5'>
@@ -97,7 +97,7 @@ function SupervisorReg() {
         </div>
       </div>
       <div className='mt-10'>
-        <h1 className='font-bold text-3xl'>Supervisors List</h1>
+        <h1 className="text-left text-3xl md:text-[40px] font-BebasNeueSemiExpBold mb-6">Supervisors List</h1>
 
         {loading ? (
           <p>Loading...</p>

@@ -469,7 +469,7 @@ function ProjectDashboard() {
         </button>
         <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`} onClick={(e) => e.stopPropagation()}>
           <div>
-            <p className="Logoword">Project Dashboard</p>
+            <p className="Logoword font-BebasNeueSemiExpBold text-3xl">Project Dashboard</p>
           </div>
           <ul>
             {role === 'Committee' ? (
@@ -522,20 +522,20 @@ function ProjectDashboard() {
                 <p>Loading data...</p>
               ) : (
                 <div className="flex flex-col gap-5">
-                  <h2 className="font-bold text-3xl underline text-center">Group {group.number}</h2>
+                  <h2 className="text-left text-3xl md:text-[40px] font-BebasNeueSemiExpBold mb-6">Group {group.number}</h2>
                   <div className="overflow-x-scroll sm:overflow-auto">
                     <table className="w-max sm:w-full">
                       <tbody className="bg-white ">
                         <tr>
-                          <td className=" py-2 whitespace-nowrap font-bold text-gray-900">Supervisor:</td>
+                          <td className=" py-2 whitespace-nowrap font-BebasNeueSemiExpBold text-2xl font-bold text-gray-900">Supervisor:</td>
                           <td className="px-4 py-2 whitespace-nowrap text-gray-500">{group.supervisor.name}</td>
                         </tr>
                         <tr>
-                          <td className="py-2 whitespace-nowrap font-bold text-gray-900">Project Title:</td>
+                          <td className="py-2 whitespace-nowrap font-BebasNeueSemiExpBold text-2xl font-bold text-gray-900">Project Title:</td>
                           <td className="px-4 py-2 whitespace-nowrap text-gray-500">{group.projectTitle}</td>
                         </tr>
                         <tr>
-                          <td className="py-2 whitespace-nowrap font-bold text-gray-900">Project Phase:</td>
+                          <td className="py-2 whitespace-nowrap font-BebasNeueSemiExpBold text-2xl font-bold text-gray-900">Project Phase:</td>
                           <td className="px-4 py-2 whitespace-nowrap text-gray-500">{group.phase || 'Not updated yet'}</td>
                         </tr>
                       </tbody>
@@ -543,7 +543,7 @@ function ProjectDashboard() {
                   </div>
 
 
-                  <h3 className="text-xl font-semibold">Members</h3>
+                  <h3 className="font-BebasNeueSemiExpBold text-3xl">Members</h3>
                   <div className="overflow-x-scroll sm:overflow-auto">
                     <table className="w-max sm:w-full  bg-white">
                       <thead>
@@ -572,7 +572,7 @@ function ProjectDashboard() {
                   </div>
 
                   {/* <p className="font-normal"><span className=" text-xl  font-semibold mr-8">Project Progress:</span>{group.progress ? `${group.progress}%` : 'Not updated yet'}</p> */}
-                  <h2 className="text-xl font-semibold">Project Progress</h2>
+                  <h2 className="font-BebasNeueSemiExpBold text-3xl">Project Progress</h2>
 
                   <div className="flex items-center justify-center w-full ">
 
@@ -582,7 +582,7 @@ function ProjectDashboard() {
                   </div>
 
                   <div>
-                    <h2 className="text-xl font-semibold">Attendance</h2>
+                    <h2 className="font-BebasNeueSemiExpBold text-3xl">Attendance Graph</h2>
                     <Bar data={data} options={options} />
                   </div>
                 </div>
@@ -596,7 +596,7 @@ function ProjectDashboard() {
                   <p>Loading data...</p>
                 ) : (
                   <>
-                    <h2 className="font-bold text-3xl">Update Marks</h2>
+                    <h2 className="text-left text-3xl md:text-[40px] font-BebasNeueSemiExpBold mb-6">Update Marks</h2>
                     <form onSubmit={handleSubmitMarks} className="mt-10">
                       <div className="flex flex-col gap-1 mb-5">
                         <label className="font-semibold">Select Phase:</label>
@@ -632,7 +632,7 @@ function ProjectDashboard() {
 
 
                 <div className="mt-10 mx-auto">
-                  <h2 className="text-3xl font-bold mb-4">Marks Table</h2>
+                  <h2 className="text-left text-3xl md:text-[40px] font-BebasNeueSemiExpBold mb-6">Marks Table</h2>
                   <div className="overflow-x-scroll sm:overflow-auto">
                     <table className="w-max sm:w-full  bg-white border">
                       <thead>
@@ -693,7 +693,7 @@ function ProjectDashboard() {
                   <>
                     {meetingDetails && meetingDetails.meetings.length > 0 && (
                       <div className='flex flex-col gap-2 mt-10'>
-                        <h2 className='font-bold text-3xl'>Meeting Details</h2>
+                        <h2 className="text-left text-3xl md:text-[40px] font-BebasNeueSemiExpBold mb-6">Meeting Details</h2>
                         {meetingDetails.meetings.slice().reverse().map((meeting, index) => (
                           <div className='flex gap-5 mt-5'>
                             <p>{++index}</p>
@@ -761,26 +761,26 @@ function ProjectDashboard() {
                 {loading ? (
                   <p>Loading...</p>
                 ) : (
-                  <form onSubmit={handleSubmitAtten} className="mt-10">
-                    <h2 className="font-bold text-3xl">Add Attendance Record</h2>
-                    <label className="block mt-4">
+                  <form onSubmit={handleSubmitAtten} className="">
+                    <h2 className="text-left text-3xl md:text-[40px] font-BebasNeueSemiExpBold mb-6">Add Attendance Record</h2>
+                    <label className="block mt-4 font-medium ">
                       Title:
                       <input
                         type="text"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                        className="p-2 border border-gray-300"
+                        className="p-2 border border-gray-300 mt-2"
                         placeholder="Meeting Agenda"
                         required
                       />
                     </label>
-                    <label className="block mt-4">
+                    <label className="block mt-4 font-medium">
                       Meeting Date:
                       <input
                         type="date"
                         value={date}
                         onChange={(e) => setDate(e.target.value)}
-                        className="p-2 border border-gray-300"
+                        className="p-2 border border-gray-300 mt-2"
                         required
                       />
                     </label>
@@ -834,7 +834,7 @@ function ProjectDashboard() {
                   }}
                   className="text-black "
                 >
-                  <h1 className="text-3xl text-center font-bold pt-6">
+                  <h1 className="text-left text-3xl md:text-[40px] font-BebasNeueSemiExpBold mb-6">
                     Meeting
                   </h1>
                   <div className="flex flex-col gap-5 mt-5">
@@ -893,7 +893,7 @@ function ProjectDashboard() {
           {selectedComponent === 'Meeting Records' && (
             <>
               <div className="flex flex-col items-start justify-start container">
-                <h1 className="text-3xl font-bold mb-4 text-center w-full">Meetings Records</h1>
+                <h1 className="text-left text-3xl md:text-[40px] font-BebasNeueSemiExpBold mb-6">Meetings Records</h1>
                 {meetingsData ? (
                   meetingsData.meetings.length === 0 ? (
                     <p>No meetings available for this group</p>
@@ -930,10 +930,9 @@ function ProjectDashboard() {
                   <p>Loading...</p>
                 ) : (
                   <>
-
-                    <h2 className="font-bold text-3xl">Attendance Records</h2>
+                    <h2 className="text-left text-3xl md:text-[40px] font-BebasNeueSemiExpBold mb-6">Attendance Records</h2>
                     <ul className="mt-10 mb-10">
-                      <h2 className="font-bold text-2xl">Overall Attendance</h2>
+                      <h2 className="text-left text-2xl md:text-4xl font-BebasNeueSemiExpBold">Overall Attendance</h2>
                       <div className="overflow-x-scroll sm:overflow-auto">
                         <table className="w-max sm:w-full mt-4 table-auto">
                           <thead>
@@ -956,7 +955,7 @@ function ProjectDashboard() {
                       </div>
 
 
-                      <h2 className="font-bold text-2xl mt-10 mb-5">Meetings Summary</h2>
+                      <h2 className="text-left text-2xl md:text-4xl font-BebasNeueSemiExpBold mt-10 mb-4">Meetings Summary</h2>
                       <div className="overflow-x-scroll sm:overflow-auto">
                         <table className="w-max sm:w-full ">
                           <thead className="bg-gray-200">
@@ -999,7 +998,7 @@ function ProjectDashboard() {
           {selectedComponent === 'Update Phase' && (
 
             <div className="container">
-              <h2 className="font-bold text-3xl ">Update Phase</h2>
+              <h2 className="text-left text-3xl md:text-[40px] font-BebasNeueSemiExpBold mb-6">Update Phase</h2>
               <form onSubmit={(e) => {
                 e.preventDefault();
                 const phase = e.target.elements.progress.value;
@@ -1022,7 +1021,7 @@ function ProjectDashboard() {
 
             <>
               <div className="container">
-                <h2 className="font-bold text-3xl">Assign Tasks</h2>
+                <h2 className="text-left text-3xl md:text-[40px] font-BebasNeueSemiExpBold mb-6">Assign Tasks</h2>
                 <form
                   className="mt-10"
                   onSubmit={(e) => {
@@ -1069,7 +1068,7 @@ function ProjectDashboard() {
                 </form>
 
                 <div className="mt-10">
-                  <h2 className="font-bold text-3xl">Assigned Tasks</h2>
+                  <h2 className="text-left text-3xl md:text-[40px] font-BebasNeueSemiExpBold mb-6">Assigned Tasks</h2>
                   {group.tasks && group.tasks.length > 0 ? (
 
                     <div className="overflow-x-auto mt-10">
@@ -1122,7 +1121,7 @@ function ProjectDashboard() {
           )}
           {selectedComponent === 'View Submissions' && (
             <div className="container">
-              <h2 className="font-bold text-3xl">View Submissions</h2>
+              <h2 className="text-left text-3xl md:text-[40px] font-BebasNeueSemiExpBold mb-6">View Submissions</h2>
               {group.submissions && group.submissions.length > 0 ? (
 
                 <div className="mt-10">
@@ -1187,7 +1186,7 @@ function ProjectDashboard() {
           {selectedComponent === 'Submit Tasks' && (
 
             <div className="container mt-10">
-              <h2 className="font-bold text-3xl">Submit Task</h2>
+              <h2 className="text-left text-3xl md:text-[40px] font-BebasNeueSemiExpBold mb-6">Submit Task</h2>
               <div className="overflow-x-auto mt-5">
                 <table className="min-w-full bg-white">
                   <thead>
@@ -1227,7 +1226,7 @@ function ProjectDashboard() {
           )}
           {selectedComponent === 'View Tasks' && (
             <div className="container">
-              <h2 className="font-bold text-3xl">View Tasks</h2>
+              <h2 className="text-left text-3xl md:text-[40px] font-BebasNeueSemiExpBold mb-6">View Tasks</h2>
               <div className="mt-10">
                 {group.tasks && group.tasks.length > 0 ? (
                   <div className="overflow-x-auto mt-10">
@@ -1279,7 +1278,7 @@ function ProjectDashboard() {
           )}
           {selectedComponent === 'Task History' && (
             <div className="container">
-              <h2 className="font-bold text-3xl">Task History</h2>
+              <h2 className="text-left text-3xl md:text-[40px] font-BebasNeueSemiExpBold mb-6">Task History</h2>
 
               {group.tasks && group.tasks.length > 0 ? (
                 <div className="overflow-x-auto mt-10">

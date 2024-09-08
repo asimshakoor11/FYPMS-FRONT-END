@@ -10,6 +10,7 @@ import "./Styles/CommitteDashboard.css";
 import NewsFeed from "../Components/NewsFeed";
 import { Link, useNavigate } from "react-router-dom";
 import ComDashboard from "./ComDashboard";
+import PastProjectsRecords from "../Components/PastProjectsRecords";
 
 function CommitteDashboard() {
     const [selectedComponent, setSelectedComponent] = useState("Profile");
@@ -44,6 +45,8 @@ function CommitteDashboard() {
                 return <GroupList />;
             case "NewsFeed":
                 return <NewsFeed />;
+            case "ProejectRecords":
+                return <PastProjectsRecords />;
             default:
                 return <Profile />;
         }
@@ -70,9 +73,9 @@ function CommitteDashboard() {
             </button>
             <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`} onClick={(e) => e.stopPropagation()}>
                 <div>
-                    <p className="Logoword">Committee Dashboard</p>
+                    <p className="Logoword font-BebasNeueSemiExpBold text-3xl">Committee Dashboard</p>
                 </div>
-                <ul>
+                <ul className="space-y-1">
                     {/* <li className={`${selectedComponent === 'Dashboard' ? 'bg-[#0056b3]' : 'bg-transparent' }`} onClick={() => setSelectedComponent("Dashboard")}>Dashboard</li> */}
                     <li className={`${selectedComponent === 'Profile' ? 'bg-[#0056b3]' : 'bg-transparent'}`} onClick={() => setSelectedComponent("Profile")}>Profile</li>
                     <li className={`${selectedComponent === 'StudentReg' ? 'bg-[#0056b3]' : 'bg-transparent'}`} onClick={() => setSelectedComponent("StudentReg")}>Student Registration</li>
@@ -82,6 +85,7 @@ function CommitteDashboard() {
                     <li className={`${selectedComponent === 'GroupFormation' ? 'bg-[#0056b3]' : 'bg-transparent'}`} onClick={() => setSelectedComponent("GroupFormation")}>Groups Formation</li>
                     <li className={`${selectedComponent === 'GroupList' ? 'bg-[#0056b3]' : 'bg-transparent'}`} onClick={() => setSelectedComponent("GroupList")}>Groups List</li>
                     <li className={`${selectedComponent === 'NewsFeed' ? 'bg-[#0056b3]' : 'bg-transparent'}`} onClick={() => setSelectedComponent("NewsFeed")}>News Feed</li>
+                    <li className={`${selectedComponent === 'ProejectRecords' ? 'bg-[#0056b3]' : 'bg-transparent'}`} onClick={() => setSelectedComponent("ProejectRecords")}>Project Records</li>
                     <Link to={'/'} style={{ textDecoration: 'none', color: 'white' }} onClick={handleLogout}> <li className={`${selectedComponent === '' ? 'bg-[#0056b3]' : 'bg-transparent'}`}>Logout</li></Link>
                 </ul>
             </div>

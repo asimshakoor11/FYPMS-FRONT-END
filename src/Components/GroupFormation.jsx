@@ -5,6 +5,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const GroupFormation = () => {
     const [groupNumber, setGroupNumber] = useState("");
+    const [groupNumberPlace, setGroupNumberPlace] = useState("");
     const [selectedStudents, setSelectedStudents] = useState([]);
     const [selectedSupervisor, setSelectedSupervisor] = useState("");
     const [projectTitle, setProjectTitle] = useState("");
@@ -52,14 +53,17 @@ const GroupFormation = () => {
     // Fetch groups from the backend
     useEffect(() => {
         fetchGroups();
-    }, []);
+        if (groups.length > 0) {
+            setGroupNumberPlace(groups.length + 1)
+        }
+    }, [groups]);
+
     const fetchGroups = async () => {
         try {
             // const response = await axios.get('http://localhost:5000/api/groups');
             const response = await axios.get('https://fypms-back-end.vercel.app/api/groups');
             const sortedGroups = response.data.sort((a, b) => a.number - b.number);
             setGroups(sortedGroups);
-            setGroupNumber(groups.length + 1)
             setLoading(false);
 
         } catch (error) {
@@ -110,6 +114,14 @@ const GroupFormation = () => {
                     setGroups([...groups, newGroup]);
                     fetchGroups();
                 }
+
+                // Store past group record
+                await axios.post('http://localhost:5000/api/past-projects', {
+                    groupNumber: groupNumber,
+                    members: selectedStudents,
+                    supervisor: selectedSupervisor,
+                    projectTitle: projectTitle,
+                });
 
                 // Reset form fields
                 toast.success('Group Registered Successfully');
@@ -179,7 +191,7 @@ const GroupFormation = () => {
 
     return (
         <div className="container">
-            <h3 className="font-bold text-3xl text-center">Add Students to Group</h3>
+            <h3 className="text-left text-3xl md:text-[40px] font-BebasNeueSemiExpBold mb-6">Add Students to Group</h3>
             <div className="mt-10">
 
                 <label htmlFor="Select Students" className="font-semibold">Select Students</label>
@@ -220,9 +232,9 @@ const GroupFormation = () => {
                         <label htmlFor="Group Number" className="font-semibold">Group Number</label>
 
                         <input
-                            className="w-full p-3"
+                            className="w-full p-3 mt-2"
                             type="text"
-                            placeholder="Group Number"
+                            placeholder={`${groupNumberPlace}`}
                             value={groupNumber}
                             onChange={handleGroupNumberChange}
                             required
@@ -233,7 +245,7 @@ const GroupFormation = () => {
                         <label htmlFor="Project Title" className="font-semibold">Project Title</label>
 
                         <input
-                            className="w-full p-3"
+                            className="w-full p-3 mt-2"
                             type="text"
                             placeholder="Project Title"
                             value={projectTitle}
@@ -248,11 +260,11 @@ const GroupFormation = () => {
             </div>
 
 
-            <div className="group-list">
-                <h2 className="font-bold text-3xl text-center mt-10">Registered Groups</h2>
+            <div className="group-list mt-10">
+                <h2 className="text-left text-3xl md:text-[40px] font-BebasNeueSemiExpBold mb-6">Registered Groups</h2>
                 {groups.map((group, index) => (
                     <div key={index} className="mt-10 flex flex-col gap-4">
-                        <h3 className="font-semibold text-2xl underline">Group {group.number}</h3>
+                        <h3 className="font-semibold font-BebasNeueSemiExpBold text-4xl underline">Group {group.number}</h3>
                         <p><strong>Supervisor:</strong> {group.supervisor.name} ({group.supervisor.username})</p>
                         <p><strong>Project Title:</strong> {group.projectTitle}</p>
                         <h3 className="font-semibold text-xl">Members</h3>

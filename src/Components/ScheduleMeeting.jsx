@@ -60,7 +60,7 @@ const ScheduleMeeting = ({ groupnumber }) => {
 
   return (
     <div className=''>
-      <h1 className='font-bold text-3xl'>Schedule a Zoom Meeting</h1>
+      <h1 className="text-left text-3xl md:text-5xl font-BebasNeueSemiExpBold mb-6">Schedule a Zoom Meeting</h1>
       <form onSubmit={handleSubmit} className='mt-10 flex flex-col gap-5'>
         <label className='font-semibold text-xl'>
           Topic:
@@ -80,7 +80,7 @@ const ScheduleMeeting = ({ groupnumber }) => {
       {meetingDetails && meetingDetails.meetings ? (
         meetingDetails.meetings.length > 0 ? (
           <div className='flex flex-col gap-2 mt-10'>
-            <h2 className='font-bold text-3xl'>Meeting Details</h2>
+            <h2 className="text-left text-3xl md:text-5xl font-BebasNeueSemiExpBold mb-6">Meeting Details</h2>
             {meetingDetails.meetings.slice().reverse().map((meeting, index) => (
               <div key={meeting._id} className='flex gap-5 mt-5'> {/* Use a unique key */}
                 <p>{index + 1}</p> {/* Display index + 1 for numbering */}

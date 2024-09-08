@@ -178,7 +178,7 @@ function Profile() {
   return (
 
     <div className="container mx-auto p-6 bg-white border border-gray-300 rounded-lg shadow-sm">
-      <h1 className="text-center text-2xl font-bold mb-6">Profile</h1>
+      <h1 className="text-left text-3xl md:text-[40px] font-BebasNeueSemiExpBold mb-6">Profile</h1>
       <div className="grid gap-6 justify-items-center">
         <div className="flex justify-center">
           {imagePreview && <img src={imagePreview} alt="Profile Preview" className="w-36 h-36 rounded-full object-cover mb-6" />}

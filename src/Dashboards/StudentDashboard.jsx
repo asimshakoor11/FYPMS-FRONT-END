@@ -4,6 +4,7 @@ import "./Styles/CommitteDashboard.css";
 import NewsFeed from "../Components/NewsFeed";
 import { Link, useNavigate } from "react-router-dom";
 import GroupList from "../Components/GroupList";
+import PastProjectsRecords from "../Components/PastProjectsRecords";
 
 function StudentDashboard() {
     const [selectedComponent, setSelectedComponent] = useState("Profile");
@@ -13,7 +14,7 @@ function StudentDashboard() {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        if(!token){
+        if (!token) {
             navigate('/')
         }
     })
@@ -26,6 +27,7 @@ function StudentDashboard() {
                 return <GroupList />;
             case "NewsFeed":
                 return <NewsFeed />;
+            
             default:
                 return <Profile />;
         }
@@ -43,8 +45,8 @@ function StudentDashboard() {
         localStorage.setItem("userRole", "");
         localStorage.setItem('token', "");
     }
-    
-   
+
+
 
     return (
         <div className="fyp-dashboard" onClick={closeSidebar}>
@@ -54,12 +56,12 @@ function StudentDashboard() {
             </button>
             <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`} onClick={(e) => e.stopPropagation()}>
                 <div>
-                    <p className="Logoword">Student Dashboard</p>
+                    <p className="Logoword font-BebasNeueSemiExpBold text-3xl">Student Dashboard</p>
                 </div>
-                <ul>
-                    <li onClick={() => {setSelectedComponent("Profile"); setIsSidebarOpen(!isSidebarOpen);}}>Profile</li>
-                    <li onClick={() => {setSelectedComponent("NewsFeed"); setIsSidebarOpen(!isSidebarOpen);}}>News Feed</li>
-                    <li onClick={() => {setSelectedComponent("GroupList"); setIsSidebarOpen(!isSidebarOpen);}}>Group List</li>
+                <ul className="space-y-1">
+                    <li className={`${selectedComponent === 'Profile' ? 'bg-[#0056b3]' : 'bg-transparent'}`} onClick={() => { setSelectedComponent("Profile"); setIsSidebarOpen(!isSidebarOpen); }}>Profile</li>
+                    <li className={`${selectedComponent === 'NewsFeed' ? 'bg-[#0056b3]' : 'bg-transparent'}`} onClick={() => { setSelectedComponent("NewsFeed"); setIsSidebarOpen(!isSidebarOpen); }}>News Feed</li>
+                    <li className={`${selectedComponent === 'GroupList' ? 'bg-[#0056b3]' : 'bg-transparent'}`} onClick={() => { setSelectedComponent("GroupList"); setIsSidebarOpen(!isSidebarOpen); }}>Group List</li>
                     <Link to={'/'} style={{ textDecoration: 'none', color: 'white' }} onClick={handleLogout}> <li>Logout</li></Link>
                 </ul>
             </div>

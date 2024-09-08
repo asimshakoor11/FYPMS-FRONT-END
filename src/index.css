@@ -12,6 +12,12 @@
 *{
   /* border: 1px solid red; */
 }
+
+@font-face {
+  font-family: 'BebasNeueSemiExpBold';
+  src: url('/font/BebasNeuePro-SemiExpBold.ttf') format('truetype');
+}
+
 body {
   font-family: "Poppins", sans-serif;
   font-weight: 400;

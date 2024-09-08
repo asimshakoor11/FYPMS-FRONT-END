@@ -52,8 +52,8 @@ function GroupList() {
 
   return (
     <div className="group-list-container">
-            <h3 className="font-bold text-3xl text-center">Groups List</h3>
-      
+      <h3 className="text-left text-3xl md:text-[40px] font-BebasNeueSemiExpBold mb-6">Groups List</h3>
+
       {loading ? (
         <p>Loading groups...</p>
       ) : filteredGroups.length === 0 ? (
@@ -62,7 +62,7 @@ function GroupList() {
         filteredGroups.map((group, index) => (
           <div key={index} className="mt-10 flex flex-col gap-4" style={{ cursor: 'pointer' }} >
             <div className="flex justify-between items-center">
-              <h3 className="font-semibold text-2xl underline">Group {group.number}</h3>
+              <h3 className="font-semibold font-BebasNeueSemiExpBold text-4xl underline">Group {group.number}</h3>
               <button
                 onClick={() => handleGroupClick(group)}
                 className="bg-primarycolor w-[150px] text-white px-4 py-2 rounded hover:bg-primarycolor"

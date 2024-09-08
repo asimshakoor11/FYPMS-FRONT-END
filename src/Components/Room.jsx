@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useParams, useLocation } from 'react-router-dom';
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 import AudioRecorder from "./AudioRecorder";
- 
+
 const Room = () => {
   const { roomID } = useParams();
   const query = new URLSearchParams(useLocation().search);
@@ -40,6 +40,17 @@ const Room = () => {
           //       roomID,
           //   },
           // ],
+          // onJoinRoom: () => {
+          //   if (role == "Supervisor") {
+          //     alert("room Joined")
+          //   }
+
+          // },
+          // onLeaveRoom: () => {
+          //   if (role == "Supervisor") {
+          //     alert("room leaved")
+          //   }
+          // },
           scenario: {
             mode: ZegoUIKitPrebuilt.GroupCall,
           },

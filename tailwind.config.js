@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        BebasNeueSemiExpBold: ['BebasNeueSemiExpBold'],
+      },
       colors: {
         'bggray': '#F7F7F7',
         'bggrayhover': '#E8E8E8',

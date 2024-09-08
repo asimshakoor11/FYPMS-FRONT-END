@@ -56,7 +56,7 @@ const NewsFeed = () => {
   return (
     <div className="news-feed">
       <div className="header">
-        <h2 className='font-bold text-3xl '>Posts</h2>
+        <h2 className="text-left text-3xl md:text-[40px] font-BebasNeueSemiExpBold">Posts</h2>
         {userRole !== "Student" && (
           <button onClick={handleShareClick} className='p-3 bg-primarycolor hover:bg-primarycolorhover text-white'>Share in Feed</button>
         )}
