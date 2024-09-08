@@ -63,10 +63,6 @@ const PastProjectsRecords = () => {
 
     return <div>Loading...</div>;
   }
-  if (!loading) {
-    console.log(pastGroups)
-  }
-
 
   return (
     <div className="container mx-auto px-4 py-8">

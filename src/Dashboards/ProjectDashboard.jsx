@@ -1101,7 +1101,7 @@ function ProjectDashboard() {
                               <td className="py-5 px-4 border-b  text-nowrap w-1/6">
                                 {task.filePath && (
                                   // <a href={`http://localhost:5000/${task.filePath}`} className="bg-primarycolor hover:bg-primarycolorhover p-2 text-white rounded" target="_blank" rel="noopener noreferrer" download>
-                                  <a href={`${task.filePath}`} className="bg-primarycolor hover:bg-primarycolorhover p-2 text-white rounded" target="_blank" rel="noopener noreferrer" download>
+                                  <a href={`${task.filePath}`} className="bg-primarycolor hover:bg-primarycolorhover p-2 text-white rounded" target="_blank" rel="noopener noreferrer" download> 
                                     Download File
                                   </a>
                                 )}
