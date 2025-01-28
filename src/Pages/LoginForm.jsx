@@ -121,115 +121,131 @@ function LoginForm() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen" style={{ backgroundImage: 'url(/images/background.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
-      <form className="bg-white p-6 rounded shadow-md w-80">
-        <h1 className="text-2xl font-bold mb-4 text-center">FYP Management System</h1>
-        <label htmlFor="username" className="block mb-2">Username:</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          value={username}
-          onChange={handleUsernameChange}
-          className="w-full p-2 mb-4 border rounded"
-        />
-        <label htmlFor="password" className="block mb-2">Password:</label>
-        <div className="relative w-full ">
+    <>
+      <div className="fixed top-[30%] left-20">
+        <div className="bg-white text-black p-4 rounded-lg">
+          <h2 className="text-center font-bold">Credientials</h2>
+          <h3 className="font-semibold">Committee</h3>
+          <p>Username: fypcommittee</p>
+          <p>Pass: fypcommittee@123</p>
+          <h3 className="font-semibold">Supervisor</h3>
+          <p>Username: 001</p>
+          <p>Pass: supervisor@123</p>
+          <h3 className="font-semibold">Student</h3>
+          <p>Username: FA20-BSE-020</p>
+          <p>Pass: asim119913</p>
+        </div>
+      </div>
+      <div className="flex justify-center items-center min-h-screen" style={{ backgroundImage: 'url(/images/background.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <form className="bg-white p-6 rounded shadow-md w-80">
+          <h1 className="text-2xl font-bold mb-4 text-center">FYP Management System</h1>
+          <label htmlFor="username" className="block mb-2">Username:</label>
           <input
-            type={showPassword ? "text" : "password"} // Toggle input type based on state
-            value={password}
-            id="password"
-            name="password"
-            onChange={handlePasswordChange}
+            type="text"
+            id="username"
+            name="username"
+            value={username}
+            onChange={handleUsernameChange}
             className="w-full p-2 mb-4 border rounded"
           />
+          <label htmlFor="password" className="block mb-2">Password:</label>
+          <div className="relative w-full ">
+            <input
+              type={showPassword ? "text" : "password"} // Toggle input type based on state
+              value={password}
+              id="password"
+              name="password"
+              onChange={handlePasswordChange}
+              className="w-full p-2 mb-4 border rounded"
+            />
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="w-fit absolute right-2 top-2 p-1 border border-transparent bg-transparent hover:bg-transparent"
+            >
+              {showPassword ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  version="1.1"
+                  xmlnsXlink="http://www.w3.org/1999/xlink"
+                  height="20"
+                  x="0"
+                  y="0"
+                  viewBox="0 0 24 24"
+                  style={{ enableBackground: "new 0 0 512 512" }} // Converted style attribute to an object
+                  xmlSpace="preserve"
+                >
+                  <g>
+                    <path
+                      d="M23.271 9.419A15.866 15.866 0 0 0 19.9 5.51l2.8-2.8a1 1 0 0 0-1.414-1.414l-3.045 3.049A12.054 12.054 0 0 0 12 2.655c-6.191 0-9.719 4.238-11.271 6.764a4.908 4.908 0 0 0 0 5.162A15.866 15.866 0 0 0 4.1 18.49l-2.8 2.8a1 1 0 1 0 1.414 1.414l3.052-3.052A12.054 12.054 0 0 0 12 21.345c6.191 0 9.719-4.238 11.271-6.764a4.908 4.908 0 0 0 0-5.162ZM2.433 13.534a2.918 2.918 0 0 1 0-3.068C3.767 8.3 6.782 4.655 12 4.655a10.1 10.1 0 0 1 4.766 1.165l-2.013 2.013a4.992 4.992 0 0 0-6.92 6.92l-2.31 2.31a13.723 13.723 0 0 1-3.09-3.529ZM15 12a3 3 0 0 1-3 3 2.951 2.951 0 0 1-1.285-.3l3.985-3.985A2.951 2.951 0 0 1 15 12Zm-6 0a3 3 0 0 1 3-3 2.951 2.951 0 0 1 1.285.3L9.3 13.285A2.951 2.951 0 0 1 9 12Zm12.567 1.534C20.233 15.7 17.218 19.345 12 19.345a10.1 10.1 0 0 1-4.766-1.165l2.013-2.013a4.992 4.992 0 0 0 6.92-6.92l2.31-2.31a13.723 13.723 0 0 1 3.09 3.529 2.918 2.918 0 0 1 0 3.068Z"
+                      fill="#000000"
+                      opacity="1"
+                      data-original="#000000"
+                    ></path>
+                  </g>
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  version="1.1"
+                  xmlnsXlink="http://www.w3.org/1999/xlink"
+                  height="20"
+                  x="0"
+                  y="0"
+                  viewBox="0 0 24 24"
+                  style={{ enableBackground: "new 0 0 512 512" }} // Converted style attribute to an object
+                  xmlSpace="preserve"
+                >
+                  <g>
+                    <path
+                      d="M23.271 9.419C21.72 6.893 18.192 2.655 12 2.655S2.28 6.893.729 9.419a4.908 4.908 0 0 0 0 5.162C2.28 17.107 5.808 21.345 12 21.345s9.72-4.238 11.271-6.764a4.908 4.908 0 0 0 0-5.162Zm-1.705 4.115C20.234 15.7 17.219 19.345 12 19.345S3.766 15.7 2.434 13.534a2.918 2.918 0 0 1 0-3.068C3.766 8.3 6.781 4.655 12 4.655s8.234 3.641 9.566 5.811a2.918 2.918 0 0 1 0 3.068Z"
+                      fill="#000000"
+                      opacity="1"
+                      data-original="#000000"
+                    ></path>
+                    <path
+                      d="M12 7a5 5 0 1 0 5 5 5.006 5.006 0 0 0-5-5Zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3Z"
+                      fill="#000000"
+                      opacity="1"
+                      data-original="#000000"
+                    ></path>
+                  </g>
+                </svg>
+              )}
+
+            </button>
+          </div>
+          <label htmlFor="role" className="block mb-2">Select Role:</label>
+          <select
+            id="role"
+            name="role"
+            value={role}
+            onChange={handleRoleChange}
+            className="w-full p-2 mb-4 border rounded"
+          >
+            <option value="">Select</option>
+            <option value="Student">Student</option>
+            <option value="Supervisor">Supervisor</option>
+            <option value="Committee">Committee</option>
+          </select>
           <button
             type="button"
-            onClick={togglePasswordVisibility}
-            className="w-fit absolute right-2 top-2 p-1 border border-transparent bg-transparent hover:bg-transparent"
+            onClick={handleSubmit}
+            className="w-full p-2 bg-primarycolor text-white rounded hover:bg-primarycolorhover"
           >
-            {showPassword ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                version="1.1"
-                xmlnsXlink="http://www.w3.org/1999/xlink"
-                height="20"
-                x="0"
-                y="0"
-                viewBox="0 0 24 24"
-                style={{ enableBackground: "new 0 0 512 512" }} // Converted style attribute to an object
-                xmlSpace="preserve"
-              >
-                <g>
-                  <path
-                    d="M23.271 9.419A15.866 15.866 0 0 0 19.9 5.51l2.8-2.8a1 1 0 0 0-1.414-1.414l-3.045 3.049A12.054 12.054 0 0 0 12 2.655c-6.191 0-9.719 4.238-11.271 6.764a4.908 4.908 0 0 0 0 5.162A15.866 15.866 0 0 0 4.1 18.49l-2.8 2.8a1 1 0 1 0 1.414 1.414l3.052-3.052A12.054 12.054 0 0 0 12 21.345c6.191 0 9.719-4.238 11.271-6.764a4.908 4.908 0 0 0 0-5.162ZM2.433 13.534a2.918 2.918 0 0 1 0-3.068C3.767 8.3 6.782 4.655 12 4.655a10.1 10.1 0 0 1 4.766 1.165l-2.013 2.013a4.992 4.992 0 0 0-6.92 6.92l-2.31 2.31a13.723 13.723 0 0 1-3.09-3.529ZM15 12a3 3 0 0 1-3 3 2.951 2.951 0 0 1-1.285-.3l3.985-3.985A2.951 2.951 0 0 1 15 12Zm-6 0a3 3 0 0 1 3-3 2.951 2.951 0 0 1 1.285.3L9.3 13.285A2.951 2.951 0 0 1 9 12Zm12.567 1.534C20.233 15.7 17.218 19.345 12 19.345a10.1 10.1 0 0 1-4.766-1.165l2.013-2.013a4.992 4.992 0 0 0 6.92-6.92l2.31-2.31a13.723 13.723 0 0 1 3.09 3.529 2.918 2.918 0 0 1 0 3.068Z"
-                    fill="#000000"
-                    opacity="1"
-                    data-original="#000000"
-                  ></path>
-                </g>
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                version="1.1"
-                xmlnsXlink="http://www.w3.org/1999/xlink"
-                height="20"
-                x="0"
-                y="0"
-                viewBox="0 0 24 24"
-                style={{ enableBackground: "new 0 0 512 512" }} // Converted style attribute to an object
-                xmlSpace="preserve"
-              >
-                <g>
-                  <path
-                    d="M23.271 9.419C21.72 6.893 18.192 2.655 12 2.655S2.28 6.893.729 9.419a4.908 4.908 0 0 0 0 5.162C2.28 17.107 5.808 21.345 12 21.345s9.72-4.238 11.271-6.764a4.908 4.908 0 0 0 0-5.162Zm-1.705 4.115C20.234 15.7 17.219 19.345 12 19.345S3.766 15.7 2.434 13.534a2.918 2.918 0 0 1 0-3.068C3.766 8.3 6.781 4.655 12 4.655s8.234 3.641 9.566 5.811a2.918 2.918 0 0 1 0 3.068Z"
-                    fill="#000000"
-                    opacity="1"
-                    data-original="#000000"
-                  ></path>
-                  <path
-                    d="M12 7a5 5 0 1 0 5 5 5.006 5.006 0 0 0-5-5Zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3Z"
-                    fill="#000000"
-                    opacity="1"
-                    data-original="#000000"
-                  ></path>
-                </g>
-              </svg>
-            )}
-
+            Login
           </button>
-        </div>
-        <label htmlFor="role" className="block mb-2">Select Role:</label>
-        <select
-          id="role"
-          name="role"
-          value={role}
-          onChange={handleRoleChange}
-          className="w-full p-2 mb-4 border rounded"
-        >
-          <option value="">Select</option>
-          <option value="Student">Student</option>
-          <option value="Supervisor">Supervisor</option>
-          <option value="Committee">Committee</option>
-        </select>
-        <button
-          type="button"
-          onClick={handleSubmit}
-          className="w-full p-2 bg-primarycolor text-white rounded hover:bg-primarycolorhover"
-        >
-          Login
-        </button>
-        {/* <button
+          {/* <button
           type="button"
           onClick={handleRegister}
           className="w-full p-2 mt-4 bg-primarycolor text-white rounded hover:bg-primarycolorhover"
         >
           Register
         </button> */}
-      </form>
-      <Toaster />
-    </div>
+        </form>
+        <Toaster />
+      </div>
+    </>
 
   );
 }
